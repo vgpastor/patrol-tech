@@ -25,7 +25,7 @@ h1 {
 main {
     flex: 1;
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
     background-color: #f0f0f0;
 }
 
@@ -41,6 +41,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; /* Ensure text wraps within the container */
 }
 
 .scan p {
