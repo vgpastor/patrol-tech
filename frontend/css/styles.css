@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f8f8f8;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+}
+
+.header-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.scan-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.scan-text {
+    font-size: 20px;
+}
+
+.torch-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.qr-reader {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+}
+
+.scan-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.scan-button:hover {
+    background-color: #0056b3;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid #ccc;
+}
+
+.nav-button {
+    padding: 10px;
+    flex: 1;
+    text-align: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-button.active {
+    color: #007bff;
+}
+
+.nav-button:hover {
+    color: #0056b3;
+}
