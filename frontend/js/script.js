@@ -1,6 +1,6 @@
 function submitScan() {
     navigator.geolocation.getCurrentPosition(position => {
-        const qrResult = document.querySelector("#qr-reader-input").value; // This should be replaced with actual QR code data
+        const qrResult = document.querySelector("#qr-reader-result").textContent; // This should be replaced with actual QR code data
         const data = {
             qrCode: qrResult,
             location: {
@@ -33,7 +33,7 @@ html5QrCode.start(
         qrbox: 250  // Optional, if you want bounded box UI
     },
     qrCodeMessage => {
-        document.querySelector("#qr-reader-input").value = qrCodeMessage; // Handle scanned QR code
+        document.querySelector("#qr-reader-result").textContent = qrCodeMessage; // Display scanned QR code
     },
     errorMessage => {
         // Handle errors
@@ -43,3 +43,8 @@ html5QrCode.start(
         // Start failed, handle it
         console.error("QR Code Scanner initialization failed: ", err);
     });
+
+function toggleTorch() {
+    // Placeholder function to toggle the torch on/off if supported by the library
+    console.log("Torch toggled");
+}

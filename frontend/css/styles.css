@@ -59,7 +59,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .scan-text {
@@ -74,13 +74,24 @@ main {
 .qr-reader {
     width: 100%;
     height: 300px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border: 2px dashed #ddd;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #aaa;
+}
+
+.scanned-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#scanned-text {
+    font-size: 16px;
 }
 
 .scan-button {
