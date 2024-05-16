@@ -1,3 +1,6 @@
+let html5QrCode;
+let torchEnabled = false;
+
 function submitScan() {
     navigator.geolocation.getCurrentPosition(position => {
         const qrResult = document.querySelector("#qr-reader-result").textContent; // This should be replaced with actual QR code data
@@ -25,26 +28,55 @@ function submitScan() {
     });
 }
 
-const html5QrCode = new Html5Qrcode("qr-reader");
-html5QrCode.start(
-    { facingMode: "environment" },
-    {
-        fps: 10,    // Optional, frame per seconds for qr code scanning
-        qrbox: 250  // Optional, if you want bounded box UI
-    },
-    qrCodeMessage => {
-        document.querySelector("#qr-reader-result").textContent = qrCodeMessage; // Display scanned QR code
-    },
-    errorMessage => {
-        // Handle errors
-        console.error(errorMessage);
-    })
-    .catch(err => {
-        // Start failed, handle it
-        console.error("QR Code Scanner initialization failed: ", err);
-    });
+function startQrCodeScanner() {
+    html5QrCode = new Html5Qrcode("qr-reader");
+
+    html5QrCode.start(
+        { facingMode: "environment" },
+        {
+            fps: 10,    // Optional, frame per seconds for qr code scanning
+            qrbox: 250,  // Optional, if you want bounded box UI
+            experimentalFeatures: {
+                useBarCodeDetectorIfSupported: true,
+                useTorch: true // Enable torch support
+            }
+        },
+        qrCodeMessage => {
+            const truncatedMessage = truncateText(qrCodeMessage, 30); // Truncate the QR code message to 30 characters
+            document.querySelector("#qr-reader-result").textContent = truncatedMessage; // Display truncated QR code
+        },
+        errorMessage => {
+            // Handle errors
+            console.error(errorMessage);
+        })
+        .catch(err => {
+            // Start failed, handle it
+            console.error("QR Code Scanner initialization failed: ", err);
+        });
+}
 
 function toggleTorch() {
-    // Placeholder function to toggle the torch on/off if supported by the library
-    console.log("Torch toggled");
+    if (html5QrCode) {
+        html5QrCode.setTorch(!torchEnabled)
+            .then(() => {
+                torchEnabled = !torchEnabled;
+                console.log("Torch toggled");
+            })
+            .catch(err => {
+                console.error("Torch toggle failed: ", err);
+            });
+    } else {
+        console.error("QR Code Scanner is not initialized");
+    }
 }
+
+function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...';
+    } else {
+        return text;
+    }
+}
+
+// Start the QR code scanner on page load
+document.addEventListener("DOMContentLoaded", startQrCodeScanner);
