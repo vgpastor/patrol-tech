@@ -21,18 +21,16 @@
         <div class="scan-container">
             <div class="scan-header">
                 <h2 class="scan-text">Scan</h2>
-                <span class="icon torch-icon" onclick="toggleTorch()">🔦</span>
+                <span class="icon torch-icon" id="torch-icon">🔦</span>
             </div>
             <div id="qr-reader" class="qr-reader"></div>
-            <div class="scanned-info">
-                <p id="scanned-text">QR Code: <span id="qr-reader-result">None</span></p>
-                <button class="scan-button" onclick="submitScan()">GO</button>
-            </div>
+            <p id="scanned-text">QR Code: <span id="qr-reader-result">None</span></p>
+            <button class="scan-button" onclick="submitScan()">GO</button>
         </div>
     </main>
     <nav>
         <button class="nav-button active">Scan</button>
-        <button class="nav-button">Reports</button>
+        <button class="nav-button" onclick="window.location.href='reports/index.html'">Reports</button>
         <button class="nav-button">Tasks</button>
         <button class="nav-button">Time</button>
     </nav>

@@ -3,6 +3,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
@@ -22,6 +23,7 @@ mongoose.connect('mongodb://localhost:27017/security-patrol', {
     useUnifiedTopology: true
 });
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/api/scans', async (req, res) => {
@@ -41,6 +43,13 @@ app.post('/api/scans', async (req, res) => {
 app.get('/api/scans', async (req, res) => {
     const scans = await Scan.find().sort('-timestamp');
     res.send(scans);
+});
+
+wss.on('connection', ws => {
+    console.log('New client connected');
+    ws.on('close', () => {
+        console.log('Client disconnected');
+    });
 });
 
 server.listen(3000, () => {
