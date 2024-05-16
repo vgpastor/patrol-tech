@@ -1,24 +1,48 @@
 const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 const app = express();
-const port = 3000;
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
 
-// Middleware
+const Scan = mongoose.model('Scan', new mongoose.Schema({
+    qrCode: String,
+    location: {
+        latitude: Number,
+        longitude: Number
+    },
+    timestamp: { type: Date, default: Date.now }
+}));
+
+mongoose.connect('mongodb://localhost:27017/security-patrol', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
 app.use(bodyParser.json());
-app.use(cors());
 
-// Database Connection
-mongoose.connect('mongodb://localhost:27017/security-patrol', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error(err));
+app.post('/api/scans', async (req, res) => {
+    const scan = new Scan(req.body);
+    await scan.save();
 
-// Routes
-const scanRoutes = require('./routes/scans');
-app.use('/api/scans', scanRoutes);
+    // Broadcast the new scan data to all connected clients
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(scan));
+        }
+    });
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
+    res.status(201).send(scan);
+});
+
+app.get('/api/scans', async (req, res) => {
+    const scans = await Scan.find().sort('-timestamp');
+    res.send(scans);
+});
+
+server.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
