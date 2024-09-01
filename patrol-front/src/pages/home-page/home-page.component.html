@@ -1,0 +1,11 @@
+<div class="card-container">
+  <mat-card class="mat-ripple">
+<!--    <mat-card-header>-->
+<!--      <mat-card-title>Card Title</mat-card-title>-->
+<!--    </mat-card-header>-->
+    <mat-card-content>
+      <div id="qr-reader" class="qr-reader"></div>
+      <button *ngIf="showStartButton" mat-raised-button (click)="startQrCodeScanner()">Start</button>
+    </mat-card-content>
+  </mat-card>
+</div>
