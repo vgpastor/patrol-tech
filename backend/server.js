@@ -1,48 +1,42 @@
 const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const sequelize = require('./db');
+const Scan = require('./models/Scan');
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const Scan = mongoose.model('Scan', new mongoose.Schema({
-    qrCode: String,
-    location: {
-        latitude: Number,
-        longitude: Number
-    },
-    timestamp: { type: Date, default: Date.now }
-}));
-
-mongoose.connect('mongodb://localhost:27017/security-patrol', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
 app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/api/scans', async (req, res) => {
-    const scan = new Scan(req.body);
-    await scan.save();
+    try {
+        const scan = await Scan.create(req.body);
 
-    // Broadcast the new scan data to all connected clients
-    wss.clients.forEach(client => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(scan));
-        }
-    });
+        // Broadcast the new scan data to all connected clients
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify(scan));
+            }
+        });
 
-    res.status(201).send(scan);
+        res.status(201).send(scan);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 });
 
 app.get('/api/scans', async (req, res) => {
-    const scans = await Scan.find().sort('-timestamp');
-    res.send(scans);
+    try {
+        const scans = await Scan.findAll({ order: [['timestamp', 'DESC']] });
+        res.send(scans);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 });
 
 wss.on('connection', ws => {
@@ -52,6 +46,10 @@ wss.on('connection', ws => {
     });
 });
 
-server.listen(3000, () => {
-    console.log('Server is running on port 3000');
+sequelize.sync().then(() => {
+    server.listen(3000, () => {
+        console.log('Server is running on port 3000');
+    });
+}).catch(err => {
+    console.error('Unable to connect to the database:', err);
 });

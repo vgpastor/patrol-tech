@@ -1,12 +1,31 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db');
 
-const scanSchema = new mongoose.Schema({
-    qrCode: String,
-    location: {
-        latitude: Number,
-        longitude: Number
+const Scan = sequelize.define('Scan', {
+    id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
     },
-    timestamp: { type: Date, default: Date.now }
+    tag: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    readAt: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    userId: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    deviceInfo: {
+        type: DataTypes.JSON,
+        allowNull: false
+    },
+    timestamp: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    }
 });
 
-module.exports = mongoose.model('Scan', scanSchema);
+module.exports = Scan;

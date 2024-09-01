@@ -11,6 +11,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.12.3",
+    "mysql2": "^3.11.0",
+    "sequelize": "^6.37.3",
     "ws": "^8.17.0"
   },
   "author": "Jesus Gil",
