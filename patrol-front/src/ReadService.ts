@@ -1,4 +1,5 @@
 import { TagRead } from './models/TagRead';
+import {environment} from "./environments/environment";
 export class ReadService {
 
   private tagsReads: TagRead[] | null = null;
@@ -48,7 +49,7 @@ export class ReadService {
     var firstSent = this.tagsReads[0];
     console.log("Sending to server", firstSent);
     // send to server
-    fetch('http://localhost:3000/api/scans', {
+    fetch(environment.apiServer+'/api/scans', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
