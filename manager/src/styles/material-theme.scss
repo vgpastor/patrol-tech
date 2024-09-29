@@ -1,0 +1,77 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+// Define custom color swatches
+$custom-primary-color: (
+  50: #e0f2f2,
+  100: #b3e0e0,
+  200: #80cccc,
+  300: #4db8b8,
+  400: #26a9a9,
+  500: #006666,
+  600: #005e5e,
+  700: #005353,
+  800: #004949,
+  900: #003737,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$custom-accent-color: (
+  50: #ffeee0,
+  100: #ffd4b3,
+  200: #ffb880,
+  300: #ff9b4d,
+  400: #ff8526,
+  500: #c25400,
+  600: #b84d00,
+  700: #a74400,
+  800: #973c00,
+  900: #7a2e00,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+// Define the palettes using the custom color swatches
+$custom-primary-palette: mat.define-palette($custom-primary-color, 500);
+$custom-accent-palette: mat.define-palette($custom-accent-color, 500, A100, A400);
+
+// Create the theme object
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary-palette,
+    accent: $custom-accent-palette,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Include theme styles for core and each component used in your app.
+@include mat.all-component-themes($custom-theme);
+
+// Custom styles
+body {
+  font-family: mat.font-family($custom-theme);
+  margin: 0;
+  padding: 0;
+}
