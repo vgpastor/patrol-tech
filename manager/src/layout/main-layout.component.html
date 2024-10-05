@@ -1,0 +1,83 @@
+<mat-toolbar color="primary" class="sticky-header">
+  <button mat-icon-button (click)="sidenav.toggle()" class="mobile-menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="logo">
+    <img ngSrc="/patrol-manager.svg" alt="PatrolTech.online" width="40" height="40"/>
+    <a mat-button routerLink="/">PatrolTech.online</a>
+  </div>
+  <span class="spacer"></span>
+  <nav class="desktop-nav">
+    <a mat-button routerLink="/caracteristicas">Características</a>
+    <a mat-button routerLink="/login">Login</a>
+    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Registro</button>
+  </nav>
+</mat-toolbar>
+
+<!-- Main content -->
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/">Inicio</a>
+      <a mat-list-item routerLink="/caracteristicas">Características</a>
+      <a mat-list-item routerLink="/descargas">Descargas</a>
+      <a mat-list-item routerLink="/blog">Blog</a>
+      <a mat-list-item routerLink="/contacto">Contacto</a>
+      <a mat-list-item routerLink="/login">Login</a>
+      <a mat-list-item routerLink="/register">Registro</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Enlaces Rápidos</h3>
+      <ul>
+        <li><a routerLink="/">Inicio</a></li>
+        <li><a routerLink="/caracteristicas">Características</a></li>
+        <li><a routerLink="/descargas">Descargas</a></li>
+        <li><a routerLink="/blog">Blog</a></li>
+        <li><a routerLink="/contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Políticas</h3>
+      <ul>
+        <li><a routerLink="/terminos">Términos y Condiciones</a></li>
+        <li><a routerLink="/privacidad">Política de Privacidad</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">
+    © 2024 PatrolTech.online. Todos los derechos reservados.
+  </div>
+</footer>
+
+<!--PatrolTech
+Solución open source para gestión y seguimiento de rondas de seguridad.
+
+Enlaces Rápidos
+Inicio
+Características
+Descargas
+Documentación
+
+Comunidad
+GitHub
+Foro
+Blog
+
+Contáctanos
+info@PatrolTech.com
+
++34 900 123 456
+
+© 2024 PatrolTech. Todos los derechos reservados.-->

@@ -1,0 +1,19 @@
+@import "variables";
+html, body{
+  margin: 0;
+}
+body {
+  display: block;
+  background-color: #F8F8F8;
+  color: #2E2E2E;
+  font-family: 'Roboto', sans-serif;
+}
+button.cta{
+  font-size: 1.1rem;
+  padding: 0.5rem 2rem;
+  background-color: $accent-color !important;
+  color: white !important;
+}
+button.cta:hover{
+  background-color: darken($accent-color, 10%) !important;
+}

@@ -1,77 +1,155 @@
 @use '@angular/material' as mat;
-@use 'sass:map';
+@import 'variables.scss';
 
-// Define custom color swatches
-$custom-primary-color: (
-  50: #e0f2f2,
-  100: #b3e0e0,
-  200: #80cccc,
-  300: #4db8b8,
-  400: #26a9a9,
-  500: #006666,
-  600: #005e5e,
-  700: #005353,
-  800: #004949,
-  900: #003737,
+// Incluir los estilos comunes para Angular Material
+@include mat.core();
+
+// Importar fuentes
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+// Definir paletas de colores usando las variables importadas
+$mat-primary: (
+  main: $primary-color,
+  lighter: $primary-lighter-color,
+  darker: $primary-darker-color,
+  200: $primary-color,
   contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: white,
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
+    main: $text-primary-color,
+    lighter: $text-primary-lighter-color,
+    darker: $text-primary-darker-color,
   )
 );
 
-$custom-accent-color: (
-  50: #ffeee0,
-  100: #ffd4b3,
-  200: #ffb880,
-  300: #ff9b4d,
-  400: #ff8526,
-  500: #c25400,
-  600: #b84d00,
-  700: #a74400,
-  800: #973c00,
-  900: #7a2e00,
+$mat-accent: (
+  main: $accent-color,
+  lighter: $accent-lighter-color,
+  darker: $accent-darker-color,
+  200: $accent-color,
   contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: rgba(black, 0.87),
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
+    main: $text-accent-color,
+    lighter: $text-accent-lighter-color,
+    darker: $text-accent-darker-color,
   )
 );
 
-// Define the palettes using the custom color swatches
-$custom-primary-palette: mat.define-palette($custom-primary-color, 500);
-$custom-accent-palette: mat.define-palette($custom-accent-color, 500, A100, A400);
+$mat-warn: (
+  main: $warn-color,
+  lighter: $warn-lighter-color,
+  darker: $warn-darker-color,
+  200: $warn-color,
+  contrast: (
+    main: $text-primary-color,
+    lighter: $dark-primary-text,
+    darker: $text-primary-color,
+  )
+);
 
-// Create the theme object
-$custom-theme: mat.define-light-theme((
+// Crear paletas de tema
+$theme-primary: mat.m2-define-palette($mat-primary, main, lighter, darker);
+$theme-accent: mat.m2-define-palette($mat-accent, main, lighter, darker);
+$theme-warn: mat.m2-define-palette($mat-warn, main, lighter, darker);
+
+// Definir configuración de tipografía
+$typography-config: mat.m2-define-typography-config(
+  $font-family: 'Roboto, sans-serif',
+  $headline-1: mat.m2-define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+  $headline-2: mat.m2-define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+  $headline-3: mat.m2-define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+  $headline-4: mat.m2-define-typography-level(34px, 40px, 400),
+  $headline-5: mat.m2-define-typography-level(24px, 32px, 400),
+  $headline-6: mat.m2-define-typography-level(20px, 32px, 500),
+  $subtitle-1: mat.m2-define-typography-level(16px, 28px, 400),
+  $subtitle-2: mat.m2-define-typography-level(15px, 24px, 500),
+  $body-1: mat.m2-define-typography-level(14px, 20px, 400),
+  $body-2: mat.m2-define-typography-level(14px, 24px, 500),
+  $caption: mat.m2-define-typography-level(12px, 20px, 400),
+  $button: mat.m2-define-typography-level(14px, 14px, 500),
+);
+
+// Crear el objeto de tema
+$theme: mat.m2-define-light-theme((
   color: (
-    primary: $custom-primary-palette,
-    accent: $custom-accent-palette,
+    primary: $theme-primary,
+    accent: $theme-accent,
+    warn: $theme-warn,
   ),
-  typography: mat.define-typography-config(),
+  typography: $typography-config,
   density: 0,
 ));
 
-// Include theme styles for core and each component used in your app.
-@include mat.all-component-themes($custom-theme);
+// Aplicar el tema a todos los componentes de Angular Material
+@include mat.all-component-themes($theme);
 
-// Custom styles
-body {
-  font-family: mat.font-family($custom-theme);
-  margin: 0;
-  padding: 0;
+// Tema alternativo (oscuro)
+$dark-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $theme-primary,
+    accent: $theme-accent,
+    warn: $theme-warn,
+  ),
+  typography: $typography-config,
+  density: 0,
+));
+
+.theme-alternate {
+  @include mat.all-component-colors($dark-theme);
+}
+
+// Estilos personalizados
+:root {
+  --primary-color: #{$primary-color};
+  --primary-lighter-color: #{$primary-lighter-color};
+  --primary-darker-color: #{$primary-darker-color};
+  --text-primary-color: #{$text-primary-color};
+  --text-primary-lighter-color: #{$text-primary-lighter-color};
+  --text-primary-darker-color: #{$text-primary-darker-color};
+
+  --accent-color: #{$accent-color};
+  --accent-lighter-color: #{$accent-lighter-color};
+  --accent-darker-color: #{$accent-darker-color};
+  --text-accent-color: #{$text-accent-color};
+  --text-accent-lighter-color: #{$text-accent-lighter-color};
+  --text-accent-darker-color: #{$text-accent-darker-color};
+
+  --warn-color: #{$warn-color};
+  --warn-lighter-color: #{$warn-lighter-color};
+  --warn-darker-color: #{$warn-darker-color};
+  --text-warn-color: #{$text-primary-color};
+  --text-warn-lighter-color: #{$dark-primary-text};
+  --text-warn-darker-color: #{$text-primary-color};
+
+  --light-background: #{$light-background};
+  --dark-background: #{$dark-background};
+}
+
+// Estilos específicos de componentes
+.mat-mdc-raised-button, .mat-mdc-outlined-button, .mat-mdc-flat-button {
+  padding: 0 1.15em;
+  margin: 0 .65em;
+  min-width: 3em;
+  line-height: 36.4px;
+}
+
+.mat-mdc-standard-chip {
+  padding: .5em .85em;
+  min-height: 2.5em;
+}
+
+.material-icons {
+  font-size: 24px;
+  font-family: 'Material Icons Outlined', 'Material Icons';
+}
+
+.mat-mdc-card .mat-mdc-card-content {
+  padding: 16px;
+}
+
+.mat-accordion {
+  .mat-expansion-panel {
+    margin-bottom: 1rem;
+  }
+  .mat-expansion-panel-header {
+    padding: 1rem 24px;
+  }
 }

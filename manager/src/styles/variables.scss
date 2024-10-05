@@ -1,0 +1,54 @@
+// Light Theme Text
+$dark-text: #2e2e2e;
+$dark-primary-text: rgba($dark-text, 0.87);
+$dark-accent-text: rgba($dark-primary-text, 0.54);
+$dark-disabled-text: rgba($dark-primary-text, 0.38);
+$dark-dividers: rgba($dark-primary-text, 0.12);
+$dark-focused: rgba($dark-primary-text, 0.12);
+
+
+// Dark Theme text
+$light-text: #f8f8f8;
+$light-primary-text: $light-text;
+$light-accent-text: rgba($light-primary-text, 0.7);
+$light-disabled-text: rgba($light-primary-text, 0.5);
+$light-dividers: rgba($light-primary-text, 0.12);
+$light-focused: rgba($light-primary-text, 0.12);
+
+// Light bg
+$light-background:    #f8f8f8;
+$light-bg-darker-5:   darken($light-background, 5%);
+$light-bg-darker-10:  darken($light-background, 10%);
+$light-bg-darker-20:  darken($light-background, 20%);
+$light-bg-darker-30:  darken($light-background, 30%);
+$light-bg-lighter-5:  lighten($light-background, 5%);
+$dark-bg-tooltip:     lighten(#2e2e2e, 20%);
+$dark-bg-alpha-4:     rgba(#2e2e2e, 0.04);
+$dark-bg-alpha-12:    rgba(#2e2e2e, 0.12);
+
+// Dark bg
+$dark-background:     #2e2e2e;
+$dark-bg-lighter-5:   lighten($dark-background, 5%);
+$dark-bg-lighter-10:  lighten($dark-background, 10%);
+$dark-bg-lighter-20:  lighten($dark-background, 20%);
+$dark-bg-lighter-30:  lighten($dark-background, 30%);
+$light-bg-alpha-4:    rgba(#f8f8f8, 0.04);
+$light-bg-alpha-12:   rgba(#f8f8f8, 0.12);
+
+$primary-color: #006666;
+$primary-lighter-color: #b3d1d1;
+$primary-darker-color: #004949;
+$text-primary-color: #{$light-primary-text};
+$text-primary-lighter-color: #{$dark-primary-text};
+$text-primary-darker-color: #{$light-primary-text};
+
+$accent-color: #c25400;
+$accent-lighter-color: #edccb3;
+$accent-darker-color: #ac3a00;
+$text-accent-color: #{$light-primary-text};
+$text-accent-lighter-color: #{$dark-primary-text};
+$text-accent-darker-color: #{$light-primary-text};
+
+$warn-color: #ab0000;
+$warn-lighter-color: #e6b3b3;
+$warn-darker-color: #910000;

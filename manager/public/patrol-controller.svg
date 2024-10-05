@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Fondo circular -->
+  <circle cx="50" cy="50" r="48" fill="#C25400"/>
+  
+  <!-- Escudo (representando seguridad) -->
+  <path d="M50 20 L30 30 L30 55 C30 70 50 80 50 80 C50 80 70 70 70 55 L70 30 Z" fill="#F8F8F8"/>
+  
+  <!-- Código QR simplificado -->
+  <rect x="38" y="38" width="24" height="24" fill="#C25400"/>
+  <rect x="41" y="41" width="6" height="6" fill="#F8F8F8"/>
+  <rect x="53" y="41" width="6" height="6" fill="#F8F8F8"/>
+  <rect x="41" y="53" width="6" height="6" fill="#F8F8F8"/>
+  <rect x="53" y="53" width="6" height="6" fill="#F8F8F8"/>
+  
+  <!-- Flecha circular (representando rondas) -->
+  <path d="M50 10 A40 40 0 0 1 90 50" fill="none" stroke="#F8F8F8" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="86,46 94,50 86,54" fill="#F8F8F8"/>
+</svg>

@@ -1,40 +1,133 @@
-<div class="landing-container">
-  <header>
-    <h1>PatrolTech</h1>
-    <p class="tagline">Vigilancia Inteligente para el Mundo Moderno</p>
-  </header>
-
-  <section class="hero">
-    <h2>Revoluciona tus Rondas de Seguridad</h2>
-    <p>Gestión avanzada de rondas con códigos QR, NFC, y GPS en tiempo real</p>
-    <button mat-raised-button color="primary" class="cta-button">Solicitar Demo</button>
+<main class="home-content">
+  <!-- Hero Section -->
+  <section class="hero animate-fade-in">
+    <h1>PatrolTech: Gestión y Seguimiento de Rondas Open Source</h1>
+    <p>Revoluciona la seguridad de tu comunidad o empresa con nuestra solución innovadora basada en tecnologías de vanguardia</p>
+    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Comenzar Ahora</button>
   </section>
 
-  <section class="features">
-    <mat-card>
-      <mat-icon>qr_code_scanner</mat-icon>
-      <h3>Escaneo QR y NFC</h3>
-      <p>Verifica puntos de control con facilidad</p>
-    </mat-card>
-    <mat-card>
-      <mat-icon>gps_fixed</mat-icon>
-      <h3>Seguimiento GPS</h3>
-      <p>Monitoreo en tiempo real de rutas</p>
-    </mat-card>
-    <mat-card>
-      <mat-icon>history</mat-icon>
-      <h3>Historial Detallado</h3>
-      <p>Registros completos de todas las rondas</p>
-    </mat-card>
+  <!-- Introducción -->
+  <section class="intro animate-fade-in">
+    <h2>Seguridad Inteligente para la Era Digital</h2>
+    <p>En un mundo cada vez más conectado, la seguridad tradicional ya no es suficiente. PatrolTech combina lo mejor de la tecnología moderna con prácticas de seguridad probadas para ofrecer una solución integral de gestión de rondas. Nuestro sistema open source aprovecha el poder de los códigos QR, las etiquetas NFC y el seguimiento GPS para proporcionar una visibilidad sin precedentes de sus operaciones de seguridad.</p>
   </section>
 
-  <section class="cta">
-    <h2>Optimiza tu Seguridad Hoy</h2>
-    <p>Únete a las empresas que confían en PatrolTech</p>
-    <button mat-raised-button color="accent" class="cta-button-alt">Comenzar Ahora</button>
+  <!-- Características principales -->
+  <section class="features animate-fade-in">
+    <h2>Características Principales</h2>
+    <div class="feature-grid">
+      <mat-card *ngFor="let feature of features; let i = index" class="animate-slide-up" [style.animation-delay]="i * 100 + 'ms'">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>{{feature.icon}}</mat-icon>
+          <mat-card-title>{{feature.title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{feature.description}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </section>
 
-  <footer>
-    <p>&copy; 2024 PatrolTech.online. Todos los derechos reservados.</p>
-  </footer>
-</div>
+  <!-- Tecnología Avanzada -->
+  <section class="advanced-tech">
+    <h2 class="tech-title">Tecnología de Vanguardia para una Seguridad Superior</h2>
+    <p class="tech-intro">PatrolTech utiliza las últimas innovaciones en tecnología para garantizar que su sistema de seguridad esté siempre un paso adelante:</p>
+    <div class="tech-slider">
+      <div class="tech-track">
+        <div class="tech-item">
+          <mat-icon class="tech-icon">link</mat-icon>
+          <h3>Blockchain</h3>
+          <p>Registros de rondas inmutables y a prueba de manipulaciones.</p>
+        </div>
+        <div class="tech-item">
+          <mat-icon class="tech-icon">psychology</mat-icon>
+          <h3>Inteligencia Artificial</h3>
+          <p>Detección de anomalías y amenazas potenciales.</p>
+        </div>
+        <div class="tech-item">
+          <mat-icon class="tech-icon">devices</mat-icon>
+          <h3>IoT</h3>
+          <p>Monitoreo ambiental para mejorar la seguridad general.</p>
+        </div>
+        <div class="tech-item">
+          <mat-icon class="tech-icon">view_in_ar</mat-icon>
+          <h3>Realidad Aumentada</h3>
+          <p>Guías visuales en tiempo real para el personal de seguridad.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cta-container">
+      <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Comenzar Ahora</button>
+    </div>
+  </section>
+
+  <!-- Casos de uso -->
+  <section class="use-cases animate-fade-in">
+    <h2>Soluciones Adaptadas para Cada Sector</h2>
+    <div class="use-case-grid">
+      <mat-card *ngFor="let useCase of useCases; let i = index" class="animate-slide-up" [style.animation-delay]="i * 100 + 'ms'">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>{{useCase.icon}}</mat-icon>
+          <mat-card-title>{{useCase.title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{useCase.description}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- Seguridad y Cumplimiento -->
+  <section class="security-compliance animate-fade-in">
+    <h2>Seguridad de Datos y Cumplimiento Normativo</h2>
+    <p>En PatrolTech, entendemos que la seguridad de los datos es tan importante como la seguridad física. Nuestro sistema está diseñado con la privacidad y el cumplimiento normativo como prioridades:</p>
+    <ul>
+      <li><strong>Cifrado de Extremo a Extremo:</strong> Toda la información transmitida y almacenada está protegida con cifrado de grado militar.</li>
+      <li><strong>Cumplimiento GDPR:</strong> Nuestro sistema cumple plenamente con el Reglamento General de Protección de Datos de la UE.</li>
+      <li><strong>Auditorías de Seguridad Regulares:</strong> Realizamos auditorías de seguridad frecuentes para garantizar la integridad de nuestros sistemas.</li>
+      <li><strong>Control de Acceso Basado en Roles:</strong> Implementamos un sistema RBAC avanzado para garantizar que solo el personal autorizado acceda a información sensible.</li>
+    </ul>
+  </section>
+
+  <!-- Llamada a la acción -->
+  <section class="cta-box animate-fade-in">
+    <h2>Eleva tu Seguridad al Siguiente Nivel</h2>
+    <p>Únete a la revolución de la seguridad inteligente. Implementación gratuita, código abierto y sin compromisos. Descubre cómo PatrolTech puede transformar tus operaciones de seguridad hoy mismo.</p>
+    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Comenzar Ahora</button>
+  </section>
+
+  <!-- Testimonios -->
+  <section class="testimonials animate-fade-in">
+    <h2>Experiencias de Nuestros Usuarios</h2>
+    <div class="testimonial-grid">
+      <mat-card *ngFor="let testimonial of testimonials; let i = index" class="animate-slide-up" [style.animation-delay]="i * 100 + 'ms'">
+        <mat-card-content>
+          <p>{{testimonial.quote}}</p>
+          <p><strong>{{testimonial.author}}</strong></p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="faqs animate-fade-in">
+    <h2>Preguntas Frecuentes</h2>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let faq of faqs">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{faq.question}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{faq.answer}}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </section>
+
+  <section class="hero animate-fade-in">
+    <h2>Empieza a controlar las rondas gratis.</h2>
+    <p>Tan sencillo es empezar que si te lleva más de 2 minutos, te llamamos y te guiamos en el proceso.</p>
+    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Comenzar Ahora</button>
+  </section>
+
+</main>

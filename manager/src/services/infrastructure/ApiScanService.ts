@@ -5,12 +5,13 @@ import {DeviceInfo} from "../domain/DeviceInfo";
 import {Checkpoint} from "../domain/Checkpoint";
 import {ScanServicesInterface} from "../domain/ScanServicesInterface";
 import {Scan} from "../domain/Scan";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiScanService implements ScanServicesInterface{
-  private apiUrl = 'https://patrol-api.homecontrol.tech/api'; // Replace with your actual API URL
+  private apiUrl = environment.apiServer+'/api';
 
   constructor(private http: HttpClient) { }
 
