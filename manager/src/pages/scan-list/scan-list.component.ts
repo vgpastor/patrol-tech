@@ -1,11 +1,9 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {Checkpoint} from "../../services/domain/Checkpoint";
-import {DeviceInfo} from "../../services/domain/DeviceInfo";
 import {interval, Subscription, switchMap} from "rxjs";
-import {ScanServicesInterface} from "../../services/domain/ScanServicesInterface";
-import {ApiScanService} from "../../services/infrastructure/ApiScanService";
 import {DatePipe, NgForOf} from "@angular/common";
-import {Scan} from "../../services/domain/Scan";
+import {ApiScanService} from "../../services/shared/infrastructure/ApiScanService";
+import {ScanServicesInterface} from "../../services/shared/domain/ScanServicesInterface";
+import {Scan} from "../../services/shared/domain/Scan";
 
 @Component({
   selector: 'app-scan-list',
@@ -37,10 +35,10 @@ export class ScanListComponent implements OnInit, OnDestroy {
 
   private startRealtimeUpdates(): void {
     this.deviceService.getScans().subscribe(
-      (passings) => {
+      (passings:any) => {
         this.recentScans = passings;
       },
-      (error) => {
+      (error:any) => {
         console.error('Error fetching recent passings', error);
       }
     );

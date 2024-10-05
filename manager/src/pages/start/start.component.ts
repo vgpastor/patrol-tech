@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatButtonModule} from "@angular/material/button";
-import {MatStepper, MatStepperIntl, MatStepperModule} from "@angular/material/stepper";
+import {MatStepper, MatStepperModule} from "@angular/material/stepper";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -15,13 +15,14 @@ import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
 import {MatCommonModule} from "@angular/material/core";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {MatList, MatListModule} from "@angular/material/list";
-import {Checkpoint} from "../../services/domain/Checkpoint";
-import {Patroller} from "../../services/domain/Patroller";
-import {Country} from "../../services/domain/Country";
-import {AuthService} from "../../services/infrastructure/AuthService";
-import {IAuthService} from "../../services/domain/IAuthService";
+import {MatListModule} from "@angular/material/list";
 import {Observable, of, tap} from "rxjs";
+import {ApiAuthService} from "../../services/auth/infrastructure/ApiAuthService";
+import {IAuthService} from "../../services/auth/domain/IAuthService";
+import {ApiUserService} from "../../services/dashboard/infrastructure/ApiUserService";
+import {IUserService} from "../../services/dashboard/domain/IUserService";
+import {Patroller} from "../../services/dashboard/domain/Patroller";
+import {Checkpoint} from "../../services/dashboard/domain/Checkpoint";
 
 @Component({
   selector: 'app-start',
@@ -73,7 +74,8 @@ export class StartComponent implements OnInit {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
-    @Inject(AuthService) private authService: IAuthService
+    @Inject(ApiAuthService) private authService: IAuthService,
+    @Inject(ApiUserService) private userService: IUserService
 ) {
     this.uniqueId = uuidv4();
 
@@ -128,7 +130,6 @@ export class StartComponent implements OnInit {
   }
 
   nextStep() {
-    // console.log(this.formData.value);
       this.saveStepData().subscribe({
         next: (response) => {
           console.log("NEXT STEP",response);
@@ -139,7 +140,7 @@ export class StartComponent implements OnInit {
         },
         error: (error) => {
           if (this.stepper != null){
-            this.stepper.previous()
+            // this.stepper.previous()
           }
           console.error("ERROR END",error);
         }
@@ -148,7 +149,8 @@ export class StartComponent implements OnInit {
   }
 
   previousStep() {
-    if (this.currentStep > 1) {
+    if (this.currentStep > 1 && this.stepper != null) {
+      this.stepper.previous()
       this.currentStep--;
     }
   }
@@ -158,7 +160,6 @@ export class StartComponent implements OnInit {
       case 1:
         return this.authService.register(this.uniqueId, this.formData.get('step1')?.get('name')?.value, this.formData.get('step1')?.get('email')?.value).pipe(tap({
           next: (response) => {
-            console.log(response);
           },
           error: (error) => {
             if (error.status == 400){
@@ -170,7 +171,7 @@ export class StartComponent implements OnInit {
           }
         }));
       case 3:
-        return this.authService.registerOrganization(this.uniqueId, this.formData.get('step2')?.get('clientType')?.value, this.formData.get('step3')?.value.companyName,this.formData.get('step3')?.value.address).pipe(tap({
+        return this.userService.registerOrganization(this.uniqueId, this.formData.get('step2')?.get('clientType')?.value, this.formData.get('step3')?.value.companyName,this.formData.get('step3')?.value.address).pipe(tap({
           next: (response) => {
             this.organizationId = response.organizationId;
             this.locationId = response.locationId;
@@ -180,18 +181,16 @@ export class StartComponent implements OnInit {
         if(!this.organizationId){
           throw new Error('Organization ID not found');
         }
-        return this.authService.registerPatrollers(this.uniqueId, this.organizationId, this.formData.get('step4')?.get('patrollers')?.value).pipe(tap({
+        return this.userService.registerPatrollers(this.uniqueId, this.organizationId, this.formData.get('step4')?.get('patrollers')?.value).pipe(tap({
           next: (response) => {
-            console.log(response);
           }
         }));
       case 5:
         if(!this.locationId){
           throw new Error('Location ID not found');
         }
-        return this.authService.registerCheckpoints(this.uniqueId, this.locationId, this.formData.get('step5')?.get('checkpoints')?.value).pipe(tap({
+        return this.userService.registerCheckpoints(this.uniqueId, this.locationId, this.formData.get('step5')?.get('checkpoints')?.value).pipe(tap({
           next: (response) => {
-            console.log(response);
           }
         }));
     }
@@ -221,14 +220,6 @@ export class StartComponent implements OnInit {
     this.formData.get('step4')?.get('patrollers')?.setValue(patrollers_form);
 
     this.formPatroller.reset();
-    Object.keys(this.formPatroller.controls).forEach(key => {
-      this.formPatroller.get(key)?.markAsUntouched();
-      this.formPatroller.get(key)?.markAsPristine();
-      this.formPatroller.get(key)?.markAsDirty();
-
-    });
-    this.formPatroller.markAsUntouched();
-    this.formPatroller.markAsDirty();
   }
 
   addQRPoint() {
@@ -262,7 +253,6 @@ export class StartComponent implements OnInit {
     this.currentStep = 5;
     this.saveStepData().subscribe({
       next: (response) => {
-        console.log("FINISH",response);
       },
       error: (error) => {
         console.error("ERROR END",error);
@@ -309,8 +299,4 @@ export class StartComponent implements OnInit {
       this.checkpointTags.splice(index, 1);
     }
   }
-
-
-  protected readonly FormGroup = FormGroup;
-  protected readonly Country = Country;
 }

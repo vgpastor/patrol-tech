@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map, Observable, tap} from 'rxjs';
 import {DeviceInfo} from "../domain/DeviceInfo";
-import {Checkpoint} from "../domain/Checkpoint";
 import {ScanServicesInterface} from "../domain/ScanServicesInterface";
 import {Scan} from "../domain/Scan";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
+import {Checkpoint} from "../../dashboard/domain/Checkpoint";
 
 @Injectable({
   providedIn: 'root'

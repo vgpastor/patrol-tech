@@ -1,7 +1,7 @@
 import {Observable} from "rxjs";
 import {DeviceInfo} from "./DeviceInfo";
-import {Checkpoint} from "./Checkpoint";
 import {Scan} from "./Scan";
+import {Checkpoint} from "../../dashboard/domain/Checkpoint";
 
 export interface ScanServicesInterface{
 

@@ -25,7 +25,7 @@
           </mat-button-toggle>
         </mat-button-toggle-group>
         <div>
-          <button mat-raised-button color="accent" matStepperNext (click)="nextStep()">Siguiente</button>
+          <button mat-raised-button color="accent" (click)="nextStep()">Siguiente</button>
         </div>
       </form>
     </mat-step>
@@ -76,8 +76,8 @@
           <input matInput formControlName="address" required>
         </mat-form-field>
         <div>
-          <button mat-raised-button color="warn" matStepperPrevious (click)="previousStep()">Atrás</button>
-          <button mat-raised-button color="accent" matStepperNext (click)="nextStep()">Siguiente</button>
+          <button mat-raised-button color="warn" (click)="previousStep()">Atrás</button>
+          <button mat-raised-button color="accent" (click)="nextStep()">Siguiente</button>
         </div>
       </form>
     </mat-step>
@@ -115,7 +115,7 @@
           <mat-row *matRowDef="let row; columns: ['name', 'email'];"></mat-row>
         </mat-table>
         <div>
-          <button mat-raised-button color="accent" matStepperNext (click)="nextStep()">Siguiente</button>
+          <button mat-raised-button color="accent" (click)="nextStep()">Siguiente</button>
         </div>
       </form>
     </mat-step>
@@ -180,8 +180,8 @@
           <mat-row *matRowDef="let row; columns: ['name', 'category', 'tags'];"></mat-row>
         </mat-table>
         <div>
-          <button mat-raised-button color="warn" matStepperPrevious (click)="previousStep()">Atrás</button>
-          <button mat-raised-button color="accent" matStepperNext (click)="finishSetup()">Finalizar y acceder al dashboard</button>
+          <button mat-raised-button color="warn" (click)="previousStep()">Atrás</button>
+          <button mat-raised-button color="accent" (click)="finishSetup()">Finalizar y acceder al dashboard</button>
         </div>
       </form>
     </mat-step>

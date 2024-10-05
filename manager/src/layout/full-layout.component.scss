@@ -1,0 +1,34 @@
+@import 'variables';
+.full-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $primary-color;
+}
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  h1{
+    text-align: center;
+    border-bottom: 1px solid $text-primary-color;
+  }
+}
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+.logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+mat-card {
+  width: 100%;
+  background-color: white;
+}

@@ -2,6 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../db';
 import { Organization } from './Organization';
 import bcrypt from 'bcrypt';
+import {hashPassword} from "../services/authService";
 
 interface UserAttributes {
 	id: string;
@@ -17,6 +18,10 @@ export class User extends Model<UserAttributes> implements UserAttributes {
 	public email!: string;
 	public password!: string;
 	public organizationId?: string;
+
+	async comparePassword(password: string): Promise<boolean> {
+		return await bcrypt.compare(password, this.password);
+	}
 }
 
 User.init(
@@ -52,8 +57,12 @@ User.init(
 		modelName: 'User',
 		hooks: {
 			beforeCreate: async (user: User) => {
-				const salt = await bcrypt.genSalt(10);
-				user.password = await bcrypt.hash(user.password, salt);
+				user.password = await hashPassword(user.password);
+			},
+			beforeUpdate: async (user: User) => {
+				if (user.changed('password')) {
+					user.password = await hashPassword(user.password);
+				}
 			},
 		},
 	}

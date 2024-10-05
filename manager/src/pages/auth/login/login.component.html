@@ -1,0 +1,32 @@
+<h2>Iniciar sesión</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" required>
+    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+      Email es requerido
+    </mat-error>
+    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+      Email no válido
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Contraseña</mat-label>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+      Contraseña es requerida
+    </mat-error>
+    <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+      La contraseña debe tener al menos 6 caracteres
+    </mat-error>
+    <mat-hint [align]="'end'" (click)="recoverPassword()" style="cursor:pointer">Recupera tu contraseña</mat-hint>
+  </mat-form-field>
+
+  <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid">
+    Iniciar Sesión
+  </button>
+</form>

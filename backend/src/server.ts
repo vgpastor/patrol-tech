@@ -7,6 +7,11 @@ import sequelize from './db';
 import scanRoutes from './routes/scans';
 import authRoutes from './routes/auth';
 import healthRoutes from './routes/health';
+import organizationsRoutes from './routes/organizations';
+
+import dotenv from 'dotenv';
+import {authenticateJWT} from "./routes/authMiddleware";
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
@@ -17,6 +22,7 @@ app.use(bodyParser.json());
 
 app.use('/api/scans', scanRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api', authenticateJWT, organizationsRoutes);
 app.use('/health', healthRoutes);
 
 wss.on('connection', (ws) => {

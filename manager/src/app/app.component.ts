@@ -1,11 +1,12 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {NavigationEnd, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {GoogleTagManagerService} from "angular-google-tag-manager";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, MatIconModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
