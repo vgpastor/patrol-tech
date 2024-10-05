@@ -1,0 +1,20 @@
+version: '3.8'
+name: patrol-tech
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: patrol_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'patrol'
+      MYSQL_USER: 'admin_patrol'
+      MYSQL_PASSWORD: '3h49?4Wwx'
+      MYSQL_ROOT_PASSWORD: 'rootpassword'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
