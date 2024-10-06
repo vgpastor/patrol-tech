@@ -8,9 +8,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'patrol'
-      MYSQL_USER: 'admin_patrol'
-      MYSQL_PASSWORD: '3h49?4Wwx'
-      MYSQL_ROOT_PASSWORD: 'rootpassword'
+      MYSQL_USER: 'patrol'
+      MYSQL_PASSWORD: 'patrol'
+      MYSQL_ROOT_PASSWORD: 'patrol'
     ports:
       - '3306:3306'
     volumes:
