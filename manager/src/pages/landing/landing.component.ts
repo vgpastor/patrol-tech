@@ -115,24 +115,26 @@ export class LandingComponent implements OnInit{
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private meta: Meta,
+    private title: Title
+) {}
 
   ngOnInit() {
-    document.title = 'PatrolTech: Gestión de Rondas Open Source Gratuito | Seguridad Inteligente para Comunidades y Empresas';
-    this.updateMetaDescription('PatrolTech: Sistema open source gratuito para gestión y seguimiento de rondas de seguridad. Solución innovadora con códigos QR, NFC y GPS para comunidades, empresas y más.');
+    this.title.setTitle('PatrolTech: Gestión de Rondas Open Source Gratuito | Seguridad Inteligente para Comunidades y Empresas');
+    this.meta.addTags([
+      { name: 'description', content: 'PatrolTech: Sistema open source gratuito para gestión y seguimiento de rondas de seguridad. Solución innovadora con códigos QR, NFC y GPS para comunidades, empresas y más.' },
+      { name: 'keywords', content: 'códigos QR, seguridad, mantenimiento, control de rondas, aplicación móvil' },
+      { property: 'og:title', content: 'PatrolTech: Sistema open source gratuito para gestión y seguimiento de rondas de seguridad.' },
+      { property: 'og:description', content: 'Optimiza el control de seguridad y mantenimiento con nuestra solución de códigos QR. Fácil instalación y uso.' },
+      { property: 'og:image', content: 'https://patroltech.online/assets/og-image.jpg' },
+      { property: 'og:url', content: 'https://patroltech.online/' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+    ]);
   }
 
   navigateToStart() {
     this.router.navigate(['/start']);
-  }
-
-  private updateMetaDescription(content: string) {
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', content);
   }
 }

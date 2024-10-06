@@ -8,9 +8,9 @@
   </div>
   <span class="spacer"></span>
   <nav class="desktop-nav">
-    <a mat-button routerLink="/caracteristicas">Características</a>
+    <a mat-button routerLink="/" fragment="features">Características</a>
     <a mat-button routerLink="/login">Login</a>
-    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Registro</button>
+    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Empezar</button>
   </nav>
 </mat-toolbar>
 
@@ -19,12 +19,11 @@
   <mat-sidenav #sidenav mode="over">
     <mat-nav-list>
       <a mat-list-item routerLink="/">Inicio</a>
-      <a mat-list-item routerLink="/caracteristicas">Características</a>
-      <a mat-list-item routerLink="/descargas">Descargas</a>
-      <a mat-list-item routerLink="/blog">Blog</a>
+      <a mat-list-item routerLink="/" fragment="features">Características</a>
+      <a mat-list-item routerLink="/how-to-start">Cómo empezar</a>
       <a mat-list-item routerLink="/contacto">Contacto</a>
       <a mat-list-item routerLink="/login">Login</a>
-      <a mat-list-item routerLink="/register">Registro</a>
+      <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Empezar</button>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -42,9 +41,9 @@
       <h3>Enlaces Rápidos</h3>
       <ul>
         <li><a routerLink="/">Inicio</a></li>
-        <li><a routerLink="/caracteristicas">Características</a></li>
-        <li><a routerLink="/descargas">Descargas</a></li>
-        <li><a routerLink="/blog">Blog</a></li>
+        <li><a routerLink="/" fragment="features">Características</a></li>
+        <li><a routerLink="/" fragment="faw">Preguntas frecuentes</a></li>
+        <li><a routerLink="/how-to-start">Como empezar</a></li>
         <li><a routerLink="/contacto">Contacto</a></li>
       </ul>
     </div>

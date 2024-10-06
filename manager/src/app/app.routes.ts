@@ -8,6 +8,7 @@ import {FullLayoutComponent} from "../layout/full-layout.component";
 import {DashboardPageComponent} from "../pages/dashboard/dashboard-page/dashboard-page.component";
 import {AuthGuard} from "../services/auth/infrastructure/auth.guard";
 import {LoginComponent} from "../pages/auth/login/login.component";
+import {HowToStartPageComponent} from "../pages/landing/how-to-start-page.component";
 
 export const routes: Routes = [
   { path: '',
@@ -19,7 +20,11 @@ export const routes: Routes = [
       },
       {
         path: 'start',
-        component: StartComponent
+        component: StartComponent,
+      },
+      {
+        path: 'how-to-start',
+        component: HowToStartPageComponent
       }
     ]
   },

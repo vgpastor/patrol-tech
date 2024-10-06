@@ -13,7 +13,7 @@
   </section>
 
   <!-- Características principales -->
-  <section class="features animate-fade-in">
+  <section class="features animate-fade-in" id="features">
     <h2>Características Principales</h2>
     <div class="feature-grid">
       <mat-card *ngFor="let feature of features; let i = index" class="animate-slide-up" [style.animation-delay]="i * 100 + 'ms'">
@@ -110,7 +110,7 @@
   </section>
 
   <!-- FAQs -->
-  <section class="faqs animate-fade-in">
+  <section class="faqs animate-fade-in" id="faq">
     <h2>Preguntas Frecuentes</h2>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let faq of faqs">

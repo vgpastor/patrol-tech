@@ -126,7 +126,9 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.initForm();
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   nextStep() {
@@ -258,7 +260,7 @@ export class StartComponent implements OnInit {
         console.error("ERROR END",error);
       }
     })
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/how-to-start']);
   }
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
