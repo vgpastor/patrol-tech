@@ -23,6 +23,7 @@ import {ApiUserService} from "../../services/dashboard/infrastructure/ApiUserSer
 import {IUserService} from "../../services/dashboard/domain/IUserService";
 import {Patroller} from "../../services/dashboard/domain/Patroller";
 import {Checkpoint} from "../../services/dashboard/domain/Checkpoint";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-start',
@@ -75,8 +76,11 @@ export class StartComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     @Inject(ApiAuthService) private authService: IAuthService,
-    @Inject(ApiUserService) private userService: IUserService
+    @Inject(ApiUserService) private userService: IUserService,
+    private meta: Meta,
+    private title: Title
 ) {
+
     this.uniqueId = uuidv4();
 
     this.patrollers = new MatTableDataSource();
@@ -126,6 +130,17 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.title.setTitle('PatrolTech: Gestión de Rondas Gratuito | Crear cuenta gratis');
+    this.meta.addTags([
+      { name: 'description', content: 'Crea un cuenta gratis y controla ahora las rondas' },
+      { name: 'keywords', content: 'códigos QR, seguridad, mantenimiento, control de rondas, aplicación móvil' },
+      { property: 'og:title', content: 'PatrolTech: Gestión de Rondas Gratuito | Crear cuenta gratis' },
+      { property: 'og:description', content: 'Crea un cuenta gratis y controla ahora las rondas.' },
+      { property: 'og:image', content: 'https://patroltech.online/assets/og-image.jpg' },
+      { property: 'og:url', content: 'https://patroltech.online/start' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+    ]);
+
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/dashboard']);
     }

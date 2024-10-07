@@ -21,7 +21,7 @@ import {RouterLink} from "@angular/router";
   templateUrl: './how-to-start-page.component.html',
   styleUrl: './how-to-start-page.component.scss'
 })
-export class HowToStartPageComponent {
+export class HowToStartPageComponent implements OnInit{
   constructor(private meta: Meta, private title: Title) {}
 
   ngOnInit() {
