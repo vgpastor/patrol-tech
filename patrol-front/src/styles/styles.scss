@@ -1,0 +1,56 @@
+@import "variables";
+html, body{
+  margin: 0;
+}
+body {
+  display: block;
+  background-color: #F8F8F8;
+  color: #2E2E2E;
+  font-family: 'Roboto', sans-serif;
+}
+button.cta{
+  font-size: 1.1rem;
+  padding: 0.5rem 2rem;
+  background-color: $accent-color !important;
+  color: white !important;
+}
+button.cta:hover{
+  background-color: darken($accent-color, 10%) !important;
+}
+
+
+// Animaciones
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+::ng-deep.mat-mdc-card{
+  border: 1px solid $primary-lighter-color !important;
+
+  ::ng-deep.mat-mdc-card-header{
+    background-color: $primary-color !important;
+    color: white !important;
+    height: 3rem !important;
+  }
+}

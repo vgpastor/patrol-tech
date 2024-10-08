@@ -1,6 +1,6 @@
 {
-  "name": "patrol-front",
-  "version": "0.0.0",
+  "name": "patrol-tech-app",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

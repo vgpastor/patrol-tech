@@ -7,11 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {ReadService} from "../ReadService";
 import { provideServiceWorker } from '@angular/service-worker';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(MatButtonModule, MatCardModule),
+    importProvidersFrom(BrowserAnimationsModule,MatButtonModule, MatCardModule),
     ReadService, provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'

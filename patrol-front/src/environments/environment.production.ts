@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiServer: 'https://patrol-api.homecontrol.tech'
+  apiServer: 'https://api.patroltech.online'
 };

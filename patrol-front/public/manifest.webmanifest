@@ -1,6 +1,6 @@
 {
-  "name": "patrol-front",
-  "short_name": "patrol-front",
+  "name": "patrol-tech-app",
+  "short_name": "patrol-tech-app",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
@@ -16,7 +16,7 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
-    },
+    }
   ],
   "theme_color": "#C25400",
   "background_color": "#F8F8F8",
