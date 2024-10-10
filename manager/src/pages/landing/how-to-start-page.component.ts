@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import {LucideAngularModule} from "lucide-angular";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-how-to-start-page',
@@ -22,7 +22,11 @@ import {RouterLink} from "@angular/router";
   styleUrl: './how-to-start-page.component.scss'
 })
 export class HowToStartPageComponent implements OnInit{
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(
+    private meta: Meta,
+    private title: Title,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.title.setTitle('PatrolTech: Gestión de Rondas Open Source Gratuito | Empieza a controlar las rondas');
@@ -42,4 +46,7 @@ export class HowToStartPageComponent implements OnInit{
     console.log('Enviando instrucciones a los controladores');
   }
 
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 }

@@ -9,8 +9,8 @@
   <span class="spacer"></span>
   <nav class="desktop-nav">
     <a mat-button routerLink="/" fragment="features">Características</a>
-    <a mat-button routerLink="/login">Login</a>
-    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">Empezar</button>
+    <a mat-button routerLink="/login" *ngIf="!userAuthenticated">Login</a>
+    <button mat-raised-button color="accent" class="cta" (click)="navigateToStart()">{{message_start}}</button>
   </nav>
 </mat-toolbar>
 

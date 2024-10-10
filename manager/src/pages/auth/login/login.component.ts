@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {NgIf} from "@angular/common";
 import {IAuthService} from "../../../services/auth/domain/IAuthService";
 import {ApiAuthService} from "../../../services/auth/infrastructure/ApiAuthService";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-login',
@@ -29,6 +31,8 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private matSnackBar: MatSnackBar,
     @Inject(ApiAuthService) private authService: IAuthService
   ) {
     this.loginForm = this.fb.group({
@@ -42,8 +46,10 @@ export class LoginComponent {
       this.authService.authenticate(this.loginForm.value.email, this.loginForm.value.password).subscribe({
         next: (response) => {
           console.log('Response:', response);
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
+          this.matSnackBar.open('Login error', 'Close');
           console.error('Error:', error);
         }
       })
@@ -55,6 +61,6 @@ export class LoginComponent {
   }
 
   recoverPassword() {
-    console.log('Recover password');
+    this.router.navigate(['/login/recover']);
   }
 }

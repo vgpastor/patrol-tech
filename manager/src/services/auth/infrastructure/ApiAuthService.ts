@@ -100,6 +100,21 @@ export class ApiAuthService implements IAuthService{
     return decodedToken;
   }
 
+  recoverPassword(email: string): Observable<any>
+  {
+    return this.http.post(
+      `${this.apiUrl}/recover-password`,
+      {email}
+    ).pipe(tap({
+      next: (data:any) => {
+        console.log('Password recovery email sent', data);
+      },
+      error: (error:any) => {
+        console.error('Error sending password recovery email', error);
+      }
+    }))
+  }
+
 
 
 }

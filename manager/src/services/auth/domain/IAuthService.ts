@@ -17,4 +17,6 @@ export interface IAuthService {
   removeToken(): void
 
   getPayload(): JwtPayload
+
+  recoverPassword(email: string): Observable<any>
 }

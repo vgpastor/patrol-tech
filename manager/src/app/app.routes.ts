@@ -9,6 +9,7 @@ import {DashboardPageComponent} from "../pages/dashboard/dashboard-page/dashboar
 import {AuthGuard} from "../services/auth/infrastructure/auth.guard";
 import {LoginComponent} from "../pages/auth/login/login.component";
 import {HowToStartPageComponent} from "../pages/landing/how-to-start-page.component";
+import {RecoverPasswordComponent} from "../pages/auth/recover-password.component";
 
 export const routes: Routes = [
   { path: '',
@@ -46,6 +47,10 @@ export const routes: Routes = [
       {
         path: '',
         component: LoginComponent
+      },
+      {
+        path: 'recover',
+        component: RecoverPasswordComponent
       }
     ]
   },
