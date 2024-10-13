@@ -8,6 +8,7 @@ import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/mat
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-recover-password',
@@ -25,7 +26,8 @@ import {NgIf} from "@angular/common";
     MatLabel,
     MatSuffix,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './recover-password.component.html',
   styleUrl: './recover-password.component.scss'

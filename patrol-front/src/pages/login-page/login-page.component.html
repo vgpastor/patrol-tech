@@ -1,0 +1,38 @@
+<div class="container" style="max-width: 400px; margin: auto; padding-top: 2rem;">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Iniciar Sesión</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>ID de Organización</mat-label>
+          <input matInput formControlName="organizationId" required (blur)="onOrganizationIdBlur()">
+          <mat-error *ngIf="loginForm.get('organizationId')?.hasError('required')">
+            ID de Organización es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <ng-container *ngIf="organizationVerified">
+          <mat-form-field *ngIf="fastAuth" appearance="fill" class="full-width">
+            <mat-label>Patrullero</mat-label>
+            <mat-select formControlName="patrollerIdentifier" required>
+              <mat-option *ngFor="let patroller of patrollers" [value]="patroller.identifier">
+                {{patroller.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="!fastAuth" appearance="fill" class="full-width">
+            <mat-label>ID de Patrullero</mat-label>
+            <input matInput formControlName="patrollerIdentifier" required>
+          </mat-form-field>
+        </ng-container>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" class="full-width">
+          Iniciar Sesión
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

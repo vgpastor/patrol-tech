@@ -7,6 +7,9 @@ import {Location} from "../models/Location";
 import {Patroller} from "../models/Patroller";
 import {Checkpoint} from "../models/Checkpoint";
 import crypto from "crypto";
+import {Scan} from "../models/Scan";
+import {ScanList} from "../entity/ScanList";
+import Checkpoints from "./checkpoints";
 
 const router = express.Router();
 
@@ -186,6 +189,47 @@ router.put('/location/:locationId/checkpoints', async (req: Request, res: Respon
 		await t.rollback();
 		console.error('Checkpoint registration error:', error);
 		res.status(500).json({ message: 'Error registering checkpoints', error });
+	}
+});
+
+router.get('/organization/list', async (req: Request, res: Response) => {
+	try {
+		const organizations = await Organization.findAll();
+		res.status(200).json(organizations);
+	} catch (error) {
+		console.error('Error retrieving organizations:', error);
+		res.status(500).json({ message: 'Error retrieving organizations', error });
+	}
+});
+
+router.get('/scans', async (req: Request, res: Response) => {
+	try {
+		const scans = await Scan.findByOrganizationId((req as any).user.organizationId);
+
+		// Recolectar todos los identificadores únicos
+		const checkpointIds = [...new Set(scans.map(scan => scan.tag))];
+		const patrollerIds = [...new Set(scans.map(scan => scan.patrollerIdentification))];
+
+		// Hacer una sola consulta para cada modelo
+		const [checkpoints, patrollers] = await Promise.all([
+			Checkpoint.findAll({ where: { identifier: checkpointIds } }),
+			Patroller.findAll({ where: { identifier: patrollerIds } })
+		]);
+
+		// Crear mapas para búsqueda rápida
+		const checkpointMap = new Map(checkpoints.map(cp => [cp.identifier, cp.name]));
+		const patrollerMap = new Map(patrollers.map(p => [p.identifier, p.name]));
+
+		const scanList = scans.map(scan => ({
+			checkpointName: checkpointMap.get(scan.tag) ?? scan.tag,
+			patrollerName: patrollerMap.get(scan.patrollerIdentification) ?? scan.patrollerIdentification,
+			timestamp: scan.timestamp,
+		}));
+
+		res.status(200).json(scanList);
+	} catch (error) {
+		console.error('Error retrieving scans:', error);
+		res.status(500).json({ message: 'Error retrieving scans', error: error instanceof Error ? error.message : 'Unknown error' });
 	}
 });
 

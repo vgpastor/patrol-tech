@@ -1,11 +1,20 @@
-<div class="card-container">
-  <mat-card class="mat-ripple">
-<!--    <mat-card-header>-->
-<!--      <mat-card-title>Card Title</mat-card-title>-->
-<!--    </mat-card-header>-->
-    <mat-card-content [class]="!showStartButton?'camera':''">
-      <div id="qr-reader" class="qr-reader" [hidden]="showStartButton"></div>
-      <button [hidden]="!showStartButton" mat-raised-button (click)="startQrCodeScanner()">Start</button>
-    </mat-card-content>
-  </mat-card>
+<div class="page-container">
+  <div class="card-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Escáner de Códigos QR</mat-card-title>
+      </mat-card-header>
+      <mat-card-content [ngClass]="{'camera': permissionsGranted}">
+        <ng-container *ngIf="!permissionsGranted; else scannerContent">
+          <p>Se requieren permisos de cámara y ubicación para usar el escáner.</p>
+          <button mat-raised-button color="primary" (click)="requestPermissions()">
+            Solicitar permisos
+          </button>
+        </ng-container>
+        <ng-template #scannerContent>
+          <app-qr-scanner></app-qr-scanner>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

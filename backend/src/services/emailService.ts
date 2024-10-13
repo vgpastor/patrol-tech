@@ -1,43 +1,29 @@
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
-import {User} from "../models/User";
+import nodemailer from "nodemailer";
+import { User } from "../models/User";
 
-// Configuración del cliente SES
-const sesClient = new SESClient({
-	region: process.env.AWS_REGION || "us-west-2", // Asegúrate de configurar la región correcta
-	credentials: {
-		accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ""
-	}
+// Configuración del cliente SMTP
+const transporter = nodemailer.createTransport({
+	host: process.env.SMTP_HOST,
+	port: parseInt(process.env.SMTP_PORT || "587"),
+	secure: process.env.SMTP_SECURE === "true",
+	auth: {
+		user: process.env.SMTP_USER,
+		pass: process.env.SMTP_PASSWORD,
+	},
 });
 
 export const sendPasswordEmail = async (user: User, password: string): Promise<void> => {
-	const params = {
-		Destination: {
-			ToAddresses: [user.email]
-		},
-		Message: {
-			Body: {
-				Html: {
-					Charset: "UTF-8",
-					Data: `<p>Your account has been created successfully.</p><p>Your temporary password is: <strong>${password}</strong></p><p>Please change this password after your first login.</p>`
-				},
-				Text: {
-					Charset: "UTF-8",
-					Data: `Your account has been created successfully. Your temporary password is: ${password}. Please change this password after your first login.`
-				}
-			},
-			Subject: {
-				Charset: "UTF-8",
-				Data: "Your New Account Password"
-			}
-		},
-		Source: "your_verified_email@example.com" // Este debe ser un correo verificado en SES
+	const mailOptions = {
+		from: '"PatrolTech" <info@patroltech.online>',
+		to: user.email,
+		subject: "Your New Account Password",
+		text: `Your account has been created successfully. Your temporary password is: ${password}. Please change this password after your first login.`,
+		html: `<p>Your account has been created successfully.</p><p>Your temporary password is: <strong>${password}</strong></p><p>Please change this password after your first login.</p>`,
 	};
 
 	try {
-		const command = new SendEmailCommand(params);
-		const response = await sesClient.send(command);
-		console.log("Password email sent successfully", response.MessageId);
+		const info = await transporter.sendMail(mailOptions);
+		console.log("Password email sent successfully", info.messageId);
 	} catch (error) {
 		console.error("Error sending password email:", error);
 		throw new Error("Failed to send password email");

@@ -1,9 +1,10 @@
 {
-  "name": "patrol-tech-app",
-  "short_name": "patrol-tech-app",
-  "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+	"name": "patrol-tech-app",
+	"short_name": "patroltechapp",
+	"start_url": "https://app.patroltech.online/",
+	"theme_color": "#C25400",
+	"display": "standalone",
+	"scope": "https://app.patroltech.online/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

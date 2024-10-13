@@ -2,7 +2,11 @@
   <div class="logo">
     <img ngSrc="/patrol-controller.svg" alt="PatrolTech.online" width="40" height="40"/>
   </div>
-  <span>Patrol Tech | Ordicia 31-41</span>
+  <span>Patrol Tech | {{organizationName}}</span>
 </mat-toolbar>
 
 <router-outlet />
+
+<button mat-fab color="warn" class="logout-button" (click)="logout()" aria-label="Cerrar sesión" *ngIf="isLogged">
+  <mat-icon>exit_to_app</mat-icon>
+</button>

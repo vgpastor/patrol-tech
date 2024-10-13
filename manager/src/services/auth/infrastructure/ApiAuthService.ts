@@ -5,6 +5,8 @@ import {environment} from "../../../environments/environment";
 import {IAuthService} from "../domain/IAuthService";
 import {jwtDecode} from "jwt-decode";
 import {JwtPayload} from "../domain/JwtPayload";
+import {ApiScanService} from "../../shared/infrastructure/ApiScanService";
+import {Organization} from "../../shared/domain/Organization";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,10 @@ export class ApiAuthService implements IAuthService{
 
   private apiUrl = environment.apiServer+'/api/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private apiScanService: ApiScanService
+  ) { }
 
   authenticate(email: string, password:string):Observable<any>
   {
@@ -25,7 +30,7 @@ export class ApiAuthService implements IAuthService{
       {email, password}
     ).pipe(tap({
       next: (data:any) => {
-        this.setToken(data.token);
+        this.setToken(data);
       },
       error: (error:any) => {
         console.error('Error authenticating user', error);
@@ -78,6 +83,27 @@ export class ApiAuthService implements IAuthService{
   setToken(token: string): void {
     this.token = token;
     localStorage.setItem(this.TOKEN_KEY, token);
+    this.loadOrganizations();
+  }
+
+  private loadOrganizations(): void
+  {
+    this.apiScanService.getOrganizationsById(this.getPayload().organizationId).subscribe({
+      next: (organizations:any) => {
+        console.log('Organization data:', organizations);
+        Object.values(organizations).forEach((organization:any) => {
+          console.log('Organization:', organization);
+          localStorage.setItem('organization_'+organization.id, JSON.stringify(organization));
+        })
+      }
+    })
+  }
+
+  getOrganization(organizationId: string): Organization | null
+  {
+    const org_json = localStorage.getItem('organization_'+organizationId);
+    if (!org_json) return null;
+    return JSON.parse(org_json);
   }
 
   getToken(): string | null {
@@ -114,7 +140,4 @@ export class ApiAuthService implements IAuthService{
       }
     }))
   }
-
-
-
 }

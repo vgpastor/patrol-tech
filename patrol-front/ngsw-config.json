@@ -3,13 +3,14 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "patrol-tech-app",
+      "name": "app",
       "installMode": "prefetch",
       "resources": {
         "files": [
           "/favicon.ico",
           "/index.html",
           "/manifest.webmanifest",
+          "/sw-custom.js",
           "/*.css",
           "/*.js"
         ]
@@ -21,8 +22,23 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "/assets/**",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "/api/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "3d",
+        "timeout": "10s"
       }
     }
   ]

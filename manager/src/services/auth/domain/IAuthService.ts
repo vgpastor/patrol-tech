@@ -1,5 +1,6 @@
 import {Observable} from "rxjs";
 import {JwtPayload} from "./JwtPayload";
+import {Organization} from "../../shared/domain/Organization";
 
 export interface IAuthService {
   authenticate(email: string, password: string): Observable<any>
@@ -19,4 +20,6 @@ export interface IAuthService {
   getPayload(): JwtPayload
 
   recoverPassword(email: string): Observable<any>
+
+  getOrganization(organizationId: string): Organization | null
 }

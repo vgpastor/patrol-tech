@@ -1,0 +1,36 @@
+.qr-scanner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  #qr-reader {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+
+  .camera-selector {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .qr-scanner-container {
+    padding: 10px;
+
+    #qr-reader {
+      height: 250px;
+    }
+  }
+}

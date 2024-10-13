@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScanListComponent } from './scan-list.component';
+import { CheckpointListComponent } from './checkpoint-list.component';
 
-describe('ScanListComponent', () => {
-  let component: ScanListComponent;
-  let fixture: ComponentFixture<ScanListComponent>;
+describe('CheckpointListComponent', () => {
+  let component: CheckpointListComponent;
+  let fixture: ComponentFixture<CheckpointListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ScanListComponent]
+      imports: [CheckpointListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ScanListComponent);
+    fixture = TestBed.createComponent(CheckpointListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

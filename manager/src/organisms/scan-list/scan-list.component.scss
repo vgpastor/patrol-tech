@@ -1,0 +1,40 @@
+.truncate-cell {
+  max-width: 200px; // Ajusta este valor según tus necesidades
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.truncate-text {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) { // Ajusta este valor según tus necesidades para dispositivos móviles
+  .truncate-cell {
+    max-width: 100px; // Reduce el ancho máximo en móviles
+  }
+
+  .truncate-text {
+    position: relative;
+
+    &:hover::after {
+      content: attr(title);
+      position: absolute;
+      left: 0;
+      top: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px;
+      border-radius: 3px;
+      z-index: 1;
+      white-space: normal;
+      word-break: break-word;
+      max-width: 200px; // Ajusta según sea necesario
+    }
+  }
+}
+

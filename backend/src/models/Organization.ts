@@ -5,12 +5,14 @@ import { Location } from './Location';
 
 interface OrganizationAttributes {
 	id: string;
+	identifier?: string;
 	name: string;
 	type: string;
 }
 
 export class Organization extends Model<OrganizationAttributes> implements OrganizationAttributes {
 	public id!: string;
+	public identifier?: string;
 	public name!: string;
 	public type!: string;
 
@@ -23,6 +25,10 @@ export class Organization extends Model<OrganizationAttributes> implements Organ
 	public static associations: {
 		locations: Association<Organization, Location>;
 	};
+
+	static async findByPkOrIdentifier(organizationId: string) {
+		return await this.findOne({where: {identifier: organizationId}}) || await this.findByPk(organizationId);
+	}
 }
 
 Organization.init(
@@ -39,6 +45,11 @@ Organization.init(
 		type: {
 			type: DataTypes.STRING,
 			allowNull: false,
+		},
+		identifier: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			unique: true,
 		},
 	},
 	{

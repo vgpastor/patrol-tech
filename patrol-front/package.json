@@ -1,10 +1,11 @@
 {
   "name": "patrol-tech-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4201",
     "build": "ng build --configuration production",
+    "ngsw-config": "ngsw-config dist ngsw-config.json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

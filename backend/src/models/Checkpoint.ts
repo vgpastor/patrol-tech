@@ -1,7 +1,10 @@
-import { Model, DataTypes, Association } from 'sequelize';
+import {Model, DataTypes, Association, FindOptions} from 'sequelize';
 import sequelize from '../db';
 import { v4 as uuidv4 } from 'uuid';
 import { Location } from './Location';
+import {PaginationOptions} from "../shared/domain/PaginationOptions";
+import {PaginatedResults} from "../shared/domain/PaginatedResults";
+import {Organization} from "./Organization";
 
 interface CheckpointAttributes {
 	id: string;
@@ -27,6 +30,32 @@ export class Checkpoint extends Model<CheckpointAttributes> implements Checkpoin
 	public static associations: {
 		location: Association<Checkpoint, Location>;
 	};
+
+	public static async findByOrganizationId(
+		organizationId: string,
+		{ page = 1, limit = 10 }: PaginationOptions  = { page : 1, limit : 10 }
+	): Promise<PaginatedResults<Checkpoint>> {
+		const offset = (page - 1) * limit;
+
+		const options: FindOptions = {
+			limit,
+			offset,
+			include: [{
+				model: Location,
+				where: { owner: organizationId },
+				include: [{ model: Organization }]
+			}]
+		};
+
+		const { count, rows } = await this.findAndCountAll(options);
+
+		return {
+			results: rows,
+			count,
+			totalPages: Math.ceil(count / limit),
+		};
+	}
+
 }
 
 Checkpoint.init(

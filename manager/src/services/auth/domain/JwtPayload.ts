@@ -9,5 +9,5 @@ export interface JwtPayload{
   id: string;
   name: string;
   email: string;
-  organizationIds: string[];
+  organizationId: string;
 }

@@ -20,15 +20,17 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span></span>
+      <span>{{organizationName}}</span>
       <span class="spacer"></span>
       <button mat-icon-button [matMenuTriggerFor]="notificationMenu" aria-label="Notificaciones">
-        <mat-icon matBadge="3" matBadgeColor="warn">notifications</mat-icon>
+<!--        <mat-icon matBadge="3" matBadgeColor="warn">notifications</mat-icon>-->
+        <mat-icon >notifications</mat-icon>
       </button>
       <mat-menu #notificationMenu="matMenu">
-        <button mat-menu-item>Notificación 1</button>
-        <button mat-menu-item>Notificación 2</button>
-        <button mat-menu-item>Notificación 3</button>
+        <button mat-menu-item>No news!!</button>
+<!--        <button mat-menu-item>Notificación 1</button>-->
+<!--        <button mat-menu-item>Notificación 2</button>-->
+<!--        <button mat-menu-item>Notificación 3</button>-->
       </mat-menu>
       <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="Usuario">
         <mat-icon>account_circle</mat-icon>

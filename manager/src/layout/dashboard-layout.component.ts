@@ -9,7 +9,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatBadgeModule} from "@angular/material/badge";
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {MatIconButton} from "@angular/material/button";
 import {JwtPayload} from "../services/auth/domain/JwtPayload";
 import {IAuthService} from "../services/auth/domain/IAuthService";
@@ -37,10 +37,12 @@ import {ApiAuthService} from "../services/auth/infrastructure/ApiAuthService";
 export class DashboardLayoutComponent implements OnInit {
   isHandset$: Observable<boolean> | undefined
   user: JwtPayload;
+  organizationName: string = '';
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    @Inject(ApiAuthService) private authService: IAuthService
+    private router: Router,
+    @Inject(ApiAuthService) private authService: IAuthService,
   ) {
     this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
       .pipe(
@@ -50,11 +52,15 @@ export class DashboardLayoutComponent implements OnInit {
     this.user = this.authService.getPayload();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user = this.authService.getPayload();
+    this.organizationName = this.authService.getOrganization(this.user.organizationId)?.name ?? '';
+    console.log('User:', this.authService.getOrganization(this.user.organizationId));
+  }
 
   logout(): void {
-    // Implement logout logic here
-    console.log('Logout clicked');
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
 

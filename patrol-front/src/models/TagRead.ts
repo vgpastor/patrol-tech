@@ -4,16 +4,18 @@ import {DeviceInfo} from "./DeviceInfo";
 
 export class TagRead{
   private id;
-  private tag: String;
+  private tag: string;
   private readAt: Date;
-  private userId: String;
+  private organizationId: string;
+  private patrollerId: string;
   private deviceInfo: DeviceInfo;
 
-  constructor(tag: String, readAt: Date, userId: String, deviceInfo: DeviceInfo){
+  constructor(tag: string, readAt: Date, organizationId:string, patrollerId: string, deviceInfo: DeviceInfo){
     this.id = uuidv4();
     this.tag = tag;
     this.readAt = readAt;
-    this.userId = userId;
+    this.patrollerId = patrollerId;
+    this.organizationId = organizationId;
     this.deviceInfo = deviceInfo;
   }
 }

@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiServer: 'https://api.patroltech.online',
+  apiServer: 'http://localhost:3000',
   googleTagManagerId: '',
 };

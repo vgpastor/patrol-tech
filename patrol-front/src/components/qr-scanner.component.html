@@ -1,0 +1,20 @@
+<div class="qr-scanner-container">
+  <div id="qr-reader" style="width: 100%; height: 300px;"></div>
+
+  <mat-form-field appearance="fill" class="camera-selector">
+    <mat-label>Seleccionar cámara</mat-label>
+    <mat-select [(ngModel)]="selectedCamera" (selectionChange)="onCameraChange()">
+      <mat-option *ngFor="let camera of cameras" [value]="camera.id">
+        {{ camera.label || 'Cámara ' + (camera.label | slice:0:4) }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-icon-button (click)="toggleFlash()" *ngIf="hasFlash" [color]="isFlashOn ? 'accent' : ''">
+    <mat-icon>{{ isFlashOn ? 'flash_on' : 'flash_off' }}</mat-icon>
+  </button>
+
+  <button mat-raised-button color="primary" (click)="startQrCodeScanner()" [hidden]="isScanning">
+    Iniciar escaneo
+  </button>
+</div>

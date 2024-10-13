@@ -9,6 +9,7 @@ import {Patroller} from "../models/Patroller";
 import {Checkpoint} from "../models/Checkpoint";
 import {generateToken} from "../services/authService";
 import { sendPasswordEmail } from '../services/emailService';
+import patrollers from "./patrollers";
 
 const router = express.Router();
 
@@ -22,16 +23,17 @@ router.post('/login', async (req: Request, res: Response) => {
 
 		const user = await User.findOne({where: {email}});
 		if (!user) {
-			return res.status(404).json({message: 'Invalid credentials'});
+			return res.status(401).json({message: 'Invalid credentials'});
 		}
 
 		const isPasswordValid = await user.comparePassword(password);
 		if (!isPasswordValid) {
-			return res.status(401).json({message: 'Invalid credentials'});
+			return res.status(401).json({message: 'Invalid credentials2'});
 		}
 
 		res.status(200).json(generateToken(user));
 	}catch (e) {
+		console.error('Login error:', e);
 		res.status(401).json({message: 'Invalid credentials'});
 	}
 })
@@ -59,6 +61,53 @@ router.post('/register', async (req: Request, res: Response) => {
 	} catch (error) {
 		console.error('Registration error:', error);
 		res.status(500).json({ message: 'Error registering user', error });
+	}
+});
+
+router.post('/recover-password', async (req: Request, res: Response) => {
+	const { email } = req.body;
+
+	const existingUser = await User.findOne({ where: { email } });
+	if (!existingUser) {
+		res.status(202).json({ message: 'Password recovery email sent' });
+		return;
+	}
+
+	const randomPassword = generateRandomPassword();
+
+	existingUser.password = randomPassword;
+	await existingUser.save();
+
+	try {
+		await sendPasswordEmail(existingUser, randomPassword);
+	} catch (emailError) {
+		console.error('Error sending password email:', emailError);
+	}
+
+	res.status(200).json({ message: 'Password recovery email sent' });
+
+});
+
+router.post('/app', async (req: Request, res: Response) => {
+	const { organizationId, patrollerId } = req.body;
+	try{
+		const organization = await Organization.findByPkOrIdentifier(organizationId);
+		if (!organization) {
+			return res.status(404).json({ message: 'Organization not found' });
+		}
+
+		const patrollers = await Patroller.findByOrganizationId(organization.id);
+		const checkpoints = await Checkpoint.findByOrganizationId(organization.id);
+
+		return res.status(200).json({
+			organization,
+			patrollers: patrollers.results,
+			checkpoints: checkpoints.results,
+			fastAuth: true
+		});
+	}catch (e) {
+		console.error('App error:', e);
+		res.status(500).json({message: 'Error linking user to organization and creating location', e});
 	}
 });
 

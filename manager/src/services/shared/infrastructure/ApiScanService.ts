@@ -6,6 +6,9 @@ import {ScanServicesInterface} from "../domain/ScanServicesInterface";
 import {Scan} from "../domain/Scan";
 import {environment} from "../../../environments/environment";
 import {Checkpoint} from "../../dashboard/domain/Checkpoint";
+import {ApiResponse} from "./ApiResponse";
+import {Patroller} from "../../dashboard/domain/Patroller";
+import {ScanList} from "../domain/ScanList";
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +26,19 @@ export class ApiScanService implements ScanServicesInterface{
     return this.http.get<DeviceInfo>(`${this.apiUrl}/devices/${id}`);
   }
 
-  getCheckpoints(): Observable<Checkpoint[]> {
-    return this.http.get<Checkpoint[]>(`${this.apiUrl}/checkpoints`);
+  getCheckpoints(): Observable<ApiResponse<Checkpoint[]>> {
+    return this.http.get<ApiResponse<Checkpoint[]>>(`${this.apiUrl}/checkpoints`);
   }
 
-  getScans(): Observable<Scan[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/scans`).pipe(
-      map(scans => scans.map(scan => ({
-        ...scan,
-        deviceInfo: typeof scan.deviceInfo === 'string' ? JSON.parse(scan.deviceInfo) : scan.deviceInfo
-      })))
-    );
+  getRecentScans(): Observable<ScanList[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/scans`);
+  }
+
+  getPatrollers(): Observable<ApiResponse<Patroller[]>> {
+    return this.http.get<ApiResponse<Patroller[]>>(`${this.apiUrl}/patrollers`);
+  }
+
+  getOrganizationsById(id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrl}/organization/list?ids=${id}`);
   }
 }

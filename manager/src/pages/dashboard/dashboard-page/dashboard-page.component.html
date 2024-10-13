@@ -1,9 +1,33 @@
-<mat-card>
-  <mat-card-header>
-    <mat-icon mat-card-avatar>link</mat-icon>
-    <mat-card-title>Recent Device Passing's</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <app-scan-list></app-scan-list>
-  </mat-card-content>
-</mat-card>
+<div class="card-container">
+  <div class="top-cards">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>qr_code</mat-icon>
+        <mat-card-title>Checkpoints</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-checkpoint-list></app-checkpoint-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>policy</mat-icon>
+        <mat-card-title>Patrollers</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-patroller-list></app-patroller-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="card full-width">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>list_alt_check</mat-icon>
+      <mat-card-title>Recent scans</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-scan-list></app-scan-list>
+    </mat-card-content>
+  </mat-card>
+</div>
