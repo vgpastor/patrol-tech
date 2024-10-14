@@ -1,27 +1,50 @@
-# PatrolFront
+# PatrolTech
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+[![License](https://img.shields.io/badge/License-AGPLv3-blue.svg)](LICENSE.md)
+[![Website](https://img.shields.io/badge/Website-patroltech.online-blue)](https://patroltech.online)
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**PatrolTech** is an open-source software solution designed to optimize the management of patrol rounds. It provides a comprehensive platform for scheduling, monitoring, and reporting patrol activities, enhancing efficiency and accountability in security operations.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Patrol Scheduling**: Easily create and manage patrol schedules.
+- **Real-time Monitoring**: Track patrols in real-time to ensure compliance.
+- **Reporting Tools**: Generate detailed reports on patrol activities.
+- **User Management**: Assign roles and permissions to team members.
+- **Customizable Alerts**: Set up notifications for missed patrols or incidents.
+- **Integration Support**: Extend functionality with integrations and extensions.
 
-## Build
+## Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Access the application at `http://localhost:3000`.
+- Log in with your credentials or create a new account.
+- Use the dashboard to manage patrols, schedules, and view reports.
 
-## Running unit tests
+## Documentation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+For detailed documentation, please visit our [official website](https://patroltech.online/docs) or refer to the `docs` directory in this repository.
 
-## Running end-to-end tests
+## Contributing
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+We welcome contributions from the community! Please read our [Contribution Guidelines](CONTRIBUTING.md) to get started.
 
-## Further help
+## License
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is licensed under the **GNU Affero General Public License v3**. See the [LICENSE.md](LICENSE.md) file for details.
+
+## Extensions and Premium Features
+
+Extensions and premium features are available under a commercial license. For more information, please visit our [pricing page](https://patroltech.online/pricing) or contact us directly.
+
+## Support
+
+If you have any questions or need assistance, feel free to contact us:
+
+- **Email**: [support@patroltech.online](mailto:support@patroltech.online)
+- **Website**: [https://patroltech.online](https://patroltech.online)
+
+## Acknowledgments
+
+We appreciate the contributions from our community and the support from our partners.
