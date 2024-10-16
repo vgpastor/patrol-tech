@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Organization } from './Organization';
 import {PaginationOptions} from "../shared/domain/PaginationOptions";
 import {PaginatedResults} from "../shared/domain/PaginatedResults";
+import crypto from "crypto";
 
 interface PatrollerAttributes {
 	id: string;
@@ -46,6 +47,30 @@ export class Patroller extends Model<PatrollerAttributes> implements PatrollerAt
 			count,
 			totalPages: Math.ceil(count / limit),
 		};
+	}
+
+	static generateIdentifier(): string {
+		return crypto.randomBytes(4).toString('hex').toUpperCase();
+	}
+
+	static async generateUniqueIdentifier(): Promise<string> {
+		let isUnique = false;
+		let identifier = Patroller.generateIdentifier();
+		while (!isUnique) {
+			const existingPatroller = await Patroller.verifyIdentifier(identifier);
+			if (!existingPatroller) {
+				isUnique = true;
+			}
+			else {
+				identifier = Patroller.generateIdentifier();
+			}
+		}
+		return identifier;
+	}
+
+	static async verifyIdentifier(identifier: string): Promise<boolean> {
+		const existingPatroller = await Patroller.findOne({ where: { identifier } });
+		return !!existingPatroller;
 	}
 }
 

@@ -12,11 +12,13 @@
 
     <mat-card class="card">
       <mat-card-header>
-        <mat-icon mat-card-avatar>policy</mat-icon>
-        <mat-card-title>Patrollers</mat-card-title>
+        <mat-card-title-group>
+          <mat-card-title><mat-icon mat-card-avatar>policy</mat-icon>Patrollers</mat-card-title>
+          <mat-icon (click)="addPatroller()">add</mat-icon>
+        </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
-        <app-patroller-list></app-patroller-list>
+        <app-patroller-list [patrollers]="this.patrollers"></app-patroller-list>
       </mat-card-content>
     </mat-card>
   </div>

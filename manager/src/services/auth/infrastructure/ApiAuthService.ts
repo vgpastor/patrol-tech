@@ -7,6 +7,7 @@ import {jwtDecode} from "jwt-decode";
 import {JwtPayload} from "../domain/JwtPayload";
 import {ApiScanService} from "../../shared/infrastructure/ApiScanService";
 import {Organization} from "../../shared/domain/Organization";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class ApiAuthService implements IAuthService{
   private apiUrl = environment.apiServer+'/api/auth';
 
   constructor(
-    private http: HttpClient,
-    private apiScanService: ApiScanService
+    private readonly http: HttpClient,
+    private readonly apiScanService: ApiScanService,
+    private readonly router: Router
   ) { }
 
   authenticate(email: string, password:string):Observable<any>
@@ -41,6 +43,8 @@ export class ApiAuthService implements IAuthService{
   logout()
   {
     console.log('Logging out user');
+    this.removeToken();
+    this.router.navigate(['/']);
   }
 
   register(userId: string, name: string, email: string): Observable<any>

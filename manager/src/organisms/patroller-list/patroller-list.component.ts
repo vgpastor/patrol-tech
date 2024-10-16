@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, Input, OnChanges} from '@angular/core';
 import { ApiScanService } from "../../services/shared/infrastructure/ApiScanService";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { CommonModule } from '@angular/common';
@@ -18,31 +18,25 @@ import {Patroller} from "../../services/dashboard/domain/Patroller";
   templateUrl: './patroller-list.component.html',
   styleUrl: './patroller-list.component.scss'
 })
-export class PatrollerListComponent implements OnInit {
+export class PatrollerListComponent implements OnInit, OnChanges {
   title = 'Patroller List';
 
   displayedColumns: string[] = ['identifier', 'name', 'status'];
   dataSource: MatTableDataSource<Patroller> = new MatTableDataSource<Patroller>([]);
 
+  @Input() public patrollers: Patroller[] = [];
+
   constructor(
-    private scanService: ApiScanService,
-    private cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.loadCheckpoints();
+    this.dataSource.data = this.patrollers
+    this.cdr.detectChanges();
   }
 
-  loadCheckpoints() {
-    this.scanService.getPatrollers().subscribe({
-      next: (checkpoints) => {
-        this.dataSource.data = checkpoints.results;
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error fetching checkpoints:', error);
-        // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario
-      }
-    });
+  ngOnChanges() {
+    this.dataSource.data = this.patrollers
+    this.cdr.detectChanges();
   }
 }

@@ -1,6 +1,19 @@
 import express, { Request, Response } from "express";
 import {Checkpoint} from "../models/Checkpoint";
 
+declare global {
+	namespace Express {
+		interface Request {
+			user?: {
+				id: string;
+				email: string;
+				name: string;
+				organizationId: string;
+			};
+		}
+	}
+}
+
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {

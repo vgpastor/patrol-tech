@@ -1,6 +1,6 @@
 import {inject, Inject, Injectable} from '@angular/core';
 import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpInterceptorFn} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {IAuthService} from "../domain/IAuthService";
 import {ApiAuthService} from "./ApiAuthService";
 
@@ -16,5 +16,12 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
-  return next(req);
+  return next(req).pipe(
+    catchError((error) => {
+      if (error.status === 401) {
+        authService.logout();
+      }
+
+      return throwError(() => error);
+    }));
 };

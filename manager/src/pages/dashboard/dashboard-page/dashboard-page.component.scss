@@ -12,6 +12,10 @@
 
 .card {
   width: 100%;
+  mat-card-title {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 768px) {

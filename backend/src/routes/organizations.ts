@@ -8,8 +8,20 @@ import {Patroller} from "../models/Patroller";
 import {Checkpoint} from "../models/Checkpoint";
 import crypto from "crypto";
 import {Scan} from "../models/Scan";
-import {ScanList} from "../entity/ScanList";
-import Checkpoints from "./checkpoints";
+
+declare global {
+	namespace Express {
+		interface Request {
+			user?: {
+				id: string;
+				email: string;
+				name: string;
+				organizationId: string;
+			};
+		}
+	}
+}
+
 
 const router = express.Router();
 
