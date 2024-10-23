@@ -30,8 +30,12 @@ export class ApiScanService implements ScanServicesInterface{
     return this.http.get<ApiResponse<Checkpoint[]>>(`${this.apiUrl}/checkpoints`);
   }
 
-  getRecentScans(): Observable<ScanList[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/scans`);
+  getRecentScans(): Observable<ApiResponse<ScanList[]>> {
+    return this.http.get<ApiResponse<ScanList[]>>(`${this.apiUrl}/scans`);
+  }
+
+  getScansList(page: number, limit: number, patroller? : string | null, checkpoint?: string | null): Observable<ApiResponse<ScanList[]>> {
+    return this.http.get<ApiResponse<ScanList[]>>(`${this.apiUrl}/scans?page=${page}&limit=${limit}&patroller=${patroller}&checkpoint=${checkpoint}`);
   }
 
   getPatrollers(): Observable<ApiResponse<Patroller[]>> {

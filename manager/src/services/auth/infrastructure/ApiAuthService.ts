@@ -42,9 +42,8 @@ export class ApiAuthService implements IAuthService{
 
   logout()
   {
-    console.log('Logging out user');
     this.removeToken();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
   register(userId: string, name: string, email: string): Observable<any>

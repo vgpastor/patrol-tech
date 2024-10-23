@@ -14,7 +14,9 @@ export interface ScanServicesInterface{
 
   getCheckpoints(): Observable<ApiResponse<Checkpoint[]>>
 
-  getRecentScans(): Observable<ScanList[]>
+  getRecentScans(): Observable<ApiResponse<ScanList[]>>
+
+  getScansList(page: number, limit: number, patroller?: string | null, checkpoint?: string | null): Observable<ApiResponse<ScanList[]>>
 
   getPatrollers(): Observable<ApiResponse<Patroller[]>>
 

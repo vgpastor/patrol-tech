@@ -1,6 +1,6 @@
 # Variables
 NODE_ENV := production
-GIT_REPO := patroltech.online_zq4g9bsaqhd@srv07.ingenierosweb.co:~/git/patroltech.git
+GIT_REPO := patroltech.online_zq4g9bsaqhd@srv07.ingenierosweb.co:~/git/dashboard.git
 DIST_DIR := dist
 SRC_DIR := src
 

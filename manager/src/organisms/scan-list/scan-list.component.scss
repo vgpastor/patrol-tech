@@ -1,5 +1,5 @@
 .truncate-cell {
-  max-width: 200px; // Ajusta este valor según tus necesidades
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -13,9 +13,23 @@
   white-space: nowrap;
 }
 
-@media screen and (max-width: 768px) { // Ajusta este valor según tus necesidades para dispositivos móviles
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 48%;
+}
+
+table {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
   .truncate-cell {
-    max-width: 100px; // Reduce el ancho máximo en móviles
+    max-width: 100px;
   }
 
   .truncate-text {
@@ -33,8 +47,16 @@
       z-index: 1;
       white-space: normal;
       word-break: break-word;
-      max-width: 200px; // Ajusta según sea necesario
+      max-width: 200px;
     }
   }
-}
 
+  .filter-container {
+    flex-direction: column;
+  }
+
+  .mat-form-field {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

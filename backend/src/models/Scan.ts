@@ -1,6 +1,11 @@
-import { Model, DataTypes } from 'sequelize';
+import {Model, DataTypes, FindOptions} from 'sequelize';
 import sequelize from '../db';
 import {v4 as uuidv4} from "uuid";
+import {PaginatedResults} from "../shared/domain/PaginatedResults";
+import {ScanList} from "../entity/ScanList";
+import {PaginationOptions} from "../shared/domain/PaginationOptions";
+import {Location} from "./Location";
+import {Organization} from "./Organization";
 
 interface ScanAttributes {
     id?: string;
@@ -21,9 +26,65 @@ export class Scan extends Model<ScanAttributes> implements ScanAttributes {
     public patrollerIdentification!: string;
     public tag!: string;
 
-    static async findByOrganizationId(organizationId: string) {
-        return await this.findAll({where: {organizationId}, order: [['timestamp', 'DESC']], limit: 10});
+    static async findByOrganizationId(
+        organizationId: string,
+        { page = 1, limit = 10 }: PaginationOptions  = { page : 1, limit : 10 }
+    ):
+        Promise<PaginatedResults<Scan>>{
+
+        const offset = (page - 1) * limit;
+
+        const options: FindOptions = {
+            limit,
+            offset,
+            where: { organizationId },
+            order: [['timestamp', 'DESC']],
+        };
+
+        const { count, rows } = await this.findAndCountAll(options);
+
+        return {
+            results: rows,
+            count,
+            totalPages: Math.ceil(count / limit),
+        };
     }
+
+    static async findFiltered(
+        organizationId: string,
+        checkPointId: string | null = null,
+        patrollerId: string | null = null,
+        { page = 1, limit = 10 }: PaginationOptions  = { page : 1, limit : 10 }
+    ):Promise<PaginatedResults<Scan>> {
+
+        const offset = (page - 1) * limit;
+
+        const where: any = { organizationId };
+
+        if (checkPointId && checkPointId !== 'null') {
+            where.tag = checkPointId;
+        }
+
+        if (patrollerId && patrollerId !== 'null') {
+            where.patrollerIdentification = patrollerId;
+        }
+
+        const options: FindOptions = {
+            limit,
+            offset,
+            where: where,
+            order: [['timestamp', 'DESC']],
+        };
+
+        const {count, rows} = await this.findAndCountAll(options);
+
+        return {
+            results: rows,
+            count,
+            totalPages: Math.ceil(count / limit),
+        };
+    }
+
 }
 
 Scan.init(

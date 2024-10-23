@@ -1,22 +1,42 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="filter-container" *ngIf="!brief">
+  <mat-form-field>
+    <mat-label>Filter by Checkpoint</mat-label>
+    <mat-select [formControl]="checkpointFilter">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let checkpoint of checkpoints" [value]="checkpoint.identifier">
+        {{checkpoint.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Filter by Patroller</mat-label>
+    <mat-select [formControl]="patrollerFilter">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let patroller of patrollers" [value]="patroller.identifier">
+        {{patroller.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Checkpoint </th>
-    <td mat-cell *matCellDef="let element" class="truncate-cell">
-      <span class="truncate-text" [attr.title]="element.checkpointName">
-        {{element.checkpointName}}
+    <th mat-header-cell *matHeaderCellDef>Checkpoint</th>
+    <td mat-cell *matCellDef="let element">
+      <span class="truncate-text" [matTooltip]="element.checkpointName">
+        {{ element.checkpointName }}
       </span>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="patroller">
-    <th mat-header-cell *matHeaderCellDef> Patroller </th>
-    <td mat-cell *matCellDef="let element"> {{element.patrollerName}} </td>
+    <th mat-header-cell *matHeaderCellDef>Patroller</th>
+    <td mat-cell *matCellDef="let element">{{ element.patrollerName }}</td>
   </ng-container>
 
-  <!-- Status Column -->
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <th mat-header-cell *matHeaderCellDef>Date</th>
     <td mat-cell *matCellDef="let element">{{ element.timestamp | date }}</td>
   </ng-container>
 
@@ -27,3 +47,9 @@
     <td class="mat-cell" colspan="3">No recent scans</td>
   </tr>
 </table>
+
+<mat-paginator [length]="totalScans"
+               [pageSize]="limit"
+               [pageSizeOptions]="brief ? [10]:[5, 10, 25, 100]"
+               (page)="onPageChange($event)">
+</mat-paginator>

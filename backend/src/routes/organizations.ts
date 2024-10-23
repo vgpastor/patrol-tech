@@ -8,6 +8,8 @@ import {Patroller} from "../models/Patroller";
 import {Checkpoint} from "../models/Checkpoint";
 import crypto from "crypto";
 import {Scan} from "../models/Scan";
+import {PaginatedResults} from "../shared/domain/PaginatedResults";
+import {ScanList} from "../entity/ScanList";
 
 declare global {
 	namespace Express {
@@ -216,11 +218,19 @@ router.get('/organization/list', async (req: Request, res: Response) => {
 
 router.get('/scans', async (req: Request, res: Response) => {
 	try {
-		const scans = await Scan.findByOrganizationId((req as any).user.organizationId);
+
+		const {page, limit, patroller, checkpoint } = req.query;
+
+		const scans = await Scan.findFiltered(
+			(req as any).user.organizationId,
+			checkpoint ? checkpoint as string : null,
+			patroller ? patroller as string : null,
+			{ page: page ? parseInt(page as string) : 1, limit: limit ? parseInt(limit as string) : 25 }
+		);
 
 		// Recolectar todos los identificadores únicos
-		const checkpointIds = [...new Set(scans.map(scan => scan.tag))];
-		const patrollerIds = [...new Set(scans.map(scan => scan.patrollerIdentification))];
+		const checkpointIds = [...new Set(scans.results.map(scan => scan.tag))];
+		const patrollerIds = [...new Set(scans.results.map(scan => scan.patrollerIdentification))];
 
 		// Hacer una sola consulta para cada modelo
 		const [checkpoints, patrollers] = await Promise.all([
@@ -232,12 +242,16 @@ router.get('/scans', async (req: Request, res: Response) => {
 		const checkpointMap = new Map(checkpoints.map(cp => [cp.identifier, cp.name]));
 		const patrollerMap = new Map(patrollers.map(p => [p.identifier, p.name]));
 
-		const scanList = scans.map(scan => ({
-			checkpointName: checkpointMap.get(scan.tag) ?? scan.tag,
-			patrollerName: patrollerMap.get(scan.patrollerIdentification) ?? scan.patrollerIdentification,
-			timestamp: scan.timestamp,
-		}));
-
+		const scanList: PaginatedResults<any> = {
+			totalPages: scans.totalPages,
+			count: scans.count,
+			results: scans.results.map(scan => ({
+				checkpointName: checkpointMap.get(scan.tag) ?? scan.tag,
+				patrollerName: patrollerMap.get(scan.patrollerIdentification) ?? scan.patrollerIdentification,
+				timestamp: scan.timestamp,
+			}))
+			,
+		}
 		res.status(200).json(scanList);
 	} catch (error) {
 		console.error('Error retrieving scans:', error);

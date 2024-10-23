@@ -88,6 +88,30 @@ router.post('/recover-password', async (req: Request, res: Response) => {
 
 });
 
+router.get('/app', async (req: Request, res: Response) => {
+	const { organizationId } = req.query
+	try{
+		const organization = await Organization.findByPkOrIdentifier(organizationId as string);
+		if (!organization) {
+			return res.status(404).json({ message: 'Organization not found' });
+		}
+
+		const patrollers = await Patroller.findByOrganizationId(organization.id);
+		const checkpoints = await Checkpoint.findByOrganizationId(organization.id);
+
+		return res.status(200).json({
+			organization,
+			patrollers: patrollers.results,
+			checkpoints: checkpoints.results,
+			fastAuth: true
+		});
+	}catch (e) {
+		console.error('App error:', e);
+		res.status(500).json({message: 'Error linking user to organization and creating location', e});
+	}
+});
+
+
 router.post('/app', async (req: Request, res: Response) => {
 	const { organizationId, patrollerId } = req.body;
 	try{

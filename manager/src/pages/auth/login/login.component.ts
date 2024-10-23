@@ -46,7 +46,7 @@ export class LoginComponent {
       this.authService.authenticate(this.loginForm.value.email, this.loginForm.value.password).subscribe({
         next: (response) => {
           console.log('Response:', response);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/']);
         },
         error: (error) => {
           this.matSnackBar.open('Login error', 'Close');
