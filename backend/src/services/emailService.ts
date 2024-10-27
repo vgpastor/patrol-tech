@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { User } from "../models/User";
+import * as fs from "node:fs";
 
 // Configuración del cliente SMTP
 const transporter = nodemailer.createTransport({
@@ -12,13 +13,20 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-export const sendPasswordEmail = async (user: User, password: string): Promise<void> => {
+const sendCreateAccountEmail = async (user: User, password: string): Promise<void> => {
+	let html = fs.readFileSync("assets/emails/new-account.html", "utf8");
+	html = parseContent(html, { password, email: user.email, name: user.name });
+
+	let text = fs.readFileSync("assets/emails/new-account.txt", "utf8");
+	text = parseContent(text, { password, email: user.email, name: user.name });
+
+
 	const mailOptions = {
 		from: '"PatrolTech" <info@patroltech.online>',
 		to: user.email,
-		subject: "Your New Account Password",
-		text: `Your account has been created successfully. Your temporary password is: ${password}. Please change this password after your first login.`,
-		html: `<p>Your account has been created successfully.</p><p>Your temporary password is: <strong>${password}</strong></p><p>Please change this password after your first login.</p>`,
+		subject: "Bienvenido a PatrolTech",
+		text: text,
+		html: html,
 	};
 
 	try {
@@ -29,3 +37,37 @@ export const sendPasswordEmail = async (user: User, password: string): Promise<v
 		throw new Error("Failed to send password email");
 	}
 };
+
+const sendRecoverPasswordEmail = async (user: User, password: string): Promise<void> => {
+	let html = fs.readFileSync("assets/emails/recover-password.html", "utf8");
+	html = parseContent(html, { password, email: user.email, name: user.name });
+
+	let text = fs.readFileSync("assets/emails/recover-password.txt", "utf8");
+	text = parseContent(text, { password, email: user.email, name: user.name });
+
+	const mailOptions = {
+		from: '"PatrolTech" <info@patroltech.online>',
+		to: user.email,
+		subject: "Recuperación de contraseña",
+		text: text,
+		html: html,
+	};
+
+	try {
+		const info = await transporter.sendMail(mailOptions);
+		console.log("Password email sent successfully", info.messageId);
+	} catch (error) {
+		console.error("Error sending password email:", error);
+		throw new Error("Failed to send password email");
+	}
+}
+
+export { sendCreateAccountEmail, sendRecoverPasswordEmail };
+
+function parseContent(content: string, data: any): string {
+	let parsedContent = content;
+	for (const key in data) {
+		parsedContent = parsedContent.replace(`{{${key}}}`, data[key]);
+	}
+	return parsedContent;
+}

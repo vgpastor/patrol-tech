@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {Patroller} from "../models/Patroller";
 import {Checkpoint} from "../models/Checkpoint";
 import {generateToken} from "../services/authService";
-import { sendPasswordEmail } from '../services/emailService';
+import {sendCreateAccountEmail, sendRecoverPasswordEmail} from '../services/emailService';
 import patrollers from "./patrollers";
 
 const router = express.Router();
@@ -28,7 +28,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
 		const isPasswordValid = await user.comparePassword(password);
 		if (!isPasswordValid) {
-			return res.status(401).json({message: 'Invalid credentials2'});
+			return res.status(401).json({message: 'Invalid credentials'});
 		}
 
 		res.status(200).json(generateToken(user));
@@ -52,7 +52,7 @@ router.post('/register', async (req: Request, res: Response) => {
 		const newUser = await User.create({ id, name, email, password: randomPassword });
 
 		try {
-			await sendPasswordEmail(newUser, randomPassword);
+			await sendCreateAccountEmail(newUser, randomPassword);
 		} catch (emailError) {
 			console.error('Error sending password email:', emailError);
 		}
@@ -79,7 +79,7 @@ router.post('/recover-password', async (req: Request, res: Response) => {
 	await existingUser.save();
 
 	try {
-		await sendPasswordEmail(existingUser, randomPassword);
+		await sendRecoverPasswordEmail(existingUser, randomPassword);
 	} catch (emailError) {
 		console.error('Error sending password email:', emailError);
 	}

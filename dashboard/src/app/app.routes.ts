@@ -6,6 +6,7 @@ import {AuthGuard} from "../services/auth/infrastructure/auth.guard";
 import {LoginComponent} from "../pages/auth/login/login.component";
 import {RecoverPasswordComponent} from "../pages/auth/recover-password.component";
 import {ListScanPageComponent} from "../pages/dashboard/list-scan-page/list-scan-page.component";
+import {UsersPageComponent} from "../pages/dashboard/users-page/users-page.component";
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
       {
         path: 'scans',
         component: ListScanPageComponent
+      },
+      {
+        path: 'users',
+        component: UsersPageComponent
       }
     ]
   },

@@ -3,6 +3,7 @@ import sequelize from '../db';
 import { Organization } from './Organization';
 import bcrypt from 'bcrypt';
 import {hashPassword} from "../services/authService";
+import {PaginatedResults} from "../shared/domain/PaginatedResults";
 
 interface UserAttributes {
 	id: string;
@@ -21,6 +22,15 @@ export class User extends Model<UserAttributes> implements UserAttributes {
 
 	async comparePassword(password: string): Promise<boolean> {
 		return await bcrypt.compare(password, this.password);
+	}
+
+	static async findByOrganizationId(organizationId: string): Promise<PaginatedResults<User>> {
+		const users = await User.findAll({ where: { organizationId } });
+		return {
+			results: users,
+			count: users.length,
+			totalPages: 1,
+		};
 	}
 }
 

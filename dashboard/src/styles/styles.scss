@@ -44,3 +44,11 @@ button.cta:hover{
   opacity: 0;
   animation: slideUp 0.5s ease-out forwards;
 }
+
+.card {
+  width: 100%;
+  mat-card-title {
+    display: flex;
+    justify-content: space-between;
+  }
+}

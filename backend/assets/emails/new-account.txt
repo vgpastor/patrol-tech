@@ -1,0 +1,18 @@
+Bienvenido a PatrolTech, {{name}}
+
+¡Nos alegra mucho darte la bienvenida a la plataforma PatrolTech! Tu cuenta ha sido creada exitosamente y ya puedes comenzar a utilizar nuestros servicios.
+
+Tus credenciales temporales:
+Usuario: {{email}}
+Contraseña temporal: {{password}}
+
+Por seguridad, te recomendamos cambiar tu contraseña en tu primer inicio de sesión.
+
+Puedes acceder a la plataforma a través del siguiente enlace:
+https://dashboard.patroltech.com
+
+Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.
+
+--
+PatrolTech
+© 2024 PatrolTech. Todos los derechos reservados.

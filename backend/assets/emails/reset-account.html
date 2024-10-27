@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperación de Contraseña - PatrolTech</title>
+    <style>
+        /* Estilos base */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+        .content {
+            padding: 20px;
+            color: #2e2e2e;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #006666;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .credentials-box {
+            background-color: #b3d1d1;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666666;
+            font-size: 12px;
+        }
+        .warning-text {
+            color: #ab0000;
+            font-size: 13px;
+            font-style: italic;
+        }
+        @media only screen and (max-width: 480px) {
+            .container {
+                width: 100% !important;
+                padding: 10px;
+            }
+            .content {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://dashboard.patroltech.online/patrol-tech.png" alt="PatrolTech Logo" class="logo">
+    </div>
+
+    <div class="content">
+        <h1>Hola, {{name}}</h1>
+
+        <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta de PatrolTech.</p>
+
+        <div class="credentials-box">
+            <p><strong>Tu nueva contraseña temporal:</strong><br>
+                {{password}}</p>
+            <p><em>Por seguridad, te recomendamos cambiar esta contraseña inmediatamente después de iniciar sesión.</em></p>
+        </div>
+
+        <center>
+            <a href="https://dashboard.patroltech.online" class="button">Acceder a la Plataforma</a>
+        </center>
+
+        <p class="warning-text">Si no solicitaste este cambio de contraseña, por favor contacta inmediatamente con nuestro equipo de soporte.</p>
+
+        <p>Datos de tu cuenta:<br>
+            Email: {{email}}</p>
+
+        <p>Si tienes alguna pregunta o necesitas ayuda adicional, no dudes en contactar a nuestro equipo de soporte.</p>
+    </div>
+
+    <div class="footer">
+        <p>Este correo fue enviado por PatrolTech<br>
+            info@patroltech.online</p>
+        <p>© 2024 PatrolTech. Todos los derechos reservados.</p>
+    </div>
+</div>
+</body>
+</html>

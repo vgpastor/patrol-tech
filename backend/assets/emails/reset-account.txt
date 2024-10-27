@@ -1,0 +1,24 @@
+Recuperación de Contraseña - PatrolTech
+
+Hola, {{name}}
+
+Hemos recibido una solicitud para restablecer la contraseña de tu cuenta de PatrolTech.
+
+Tu nueva contraseña temporal:
+{{password}}
+
+Por seguridad, te recomendamos cambiar esta contraseña inmediatamente después de iniciar sesión.
+
+Puedes acceder a la plataforma en:
+https://dashboard.patroltech.com/login
+
+IMPORTANTE: Si no solicitaste este cambio de contraseña, por favor contacta inmediatamente con nuestro equipo de soporte.
+
+Datos de tu cuenta:
+Email: {{email}}
+
+Si tienes alguna pregunta o necesitas ayuda adicional, no dudes en contactar a nuestro equipo de soporte.
+
+--
+PatrolTech
+© 2024 PatrolTech. Todos los derechos reservados.

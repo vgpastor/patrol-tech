@@ -1,0 +1,38 @@
+<mat-card class="card full-width">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title><mat-icon mat-card-avatar>manage_accounts</mat-icon>Users</mat-card-title>
+      <mat-icon (click)="addUser()">add</mat-icon>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="truncate-text" [matTooltip]="element.name">
+            {{ element.name }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email" matSort>
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date" >
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="3">No recent scans</td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>

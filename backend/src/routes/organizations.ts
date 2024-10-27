@@ -10,6 +10,7 @@ import crypto from "crypto";
 import {Scan} from "../models/Scan";
 import {PaginatedResults} from "../shared/domain/PaginatedResults";
 import {ScanList} from "../entity/ScanList";
+import {sendCreateAccountEmail} from "../services/emailService";
 
 declare global {
 	namespace Express {
@@ -256,6 +257,39 @@ router.get('/scans', async (req: Request, res: Response) => {
 	} catch (error) {
 		console.error('Error retrieving scans:', error);
 		res.status(500).json({ message: 'Error retrieving scans', error: error instanceof Error ? error.message : 'Unknown error' });
+	}
+});
+
+router.get('/users', async (req: Request, res: Response) => {
+	try {
+		const users = await User.findByOrganizationId((req as any).user.organizationId);
+		res.status(200).json(users);
+
+	} catch (error) {
+		console.error('Error retrieving users:', error);
+		res.status(500).json({ message: 'Error retrieving users', error });
+	}
+})
+
+router.post('/users', async (req: Request, res: Response) => {
+	try{
+		const { id, name, email, organizationId } = req.body;
+
+		const randomPassword = crypto.randomBytes(4).toString('hex').toUpperCase();
+
+		const newUser = await User.create({ id, name, email, password: randomPassword, organizationId: (req as any).user.organizationId });
+
+		try {
+			await sendCreateAccountEmail(newUser, randomPassword);
+		} catch (emailError) {
+			console.error('Error sending password email:', emailError);
+		}
+
+		res.status(201).json();
+
+	}catch (error) {
+		console.error('Error creating user:', error);
+		res.status(500).json({ message: 'Error creating user', error });
 	}
 });
 

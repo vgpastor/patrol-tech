@@ -9,6 +9,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {icons, LucideAngularModule} from "lucide-angular";
 import {environment} from "../environments/environment";
 import {jwtInterceptor} from "../services/auth/infrastructure/jwt.interceptor";
+import {ApiServicesInterface} from "../services/shared/domain/ApiServiceInterface";
+import {ApiService} from "../services/shared/infrastructure/ApiService";
 
 registerLocaleData(localeEs, 'es');
 
