@@ -63,4 +63,8 @@ export class LoginComponent {
   recoverPassword() {
     this.router.navigate(['/login/recover']);
   }
+
+  register() {
+    window.open('https://patroltech.online/start', '_blank');
+  }
 }
