@@ -29,7 +29,7 @@ deploy:
 	if exist $(DIST_DIR) rmdir /s /q $(DIST_DIR)
 
 	@echo Compiling TypeScript...
-	call npx tsc
+	call npm run build
 
 	@echo Copying necessary files to dist...
 	copy package.json $(DIST_DIR)
