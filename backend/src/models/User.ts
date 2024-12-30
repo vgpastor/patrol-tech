@@ -11,6 +11,7 @@ interface UserAttributes {
 	email: string;
 	password: string;
 	organizationId?: string;
+	lastLogin?: Date;
 }
 
 export class User extends Model<UserAttributes> implements UserAttributes {
@@ -19,6 +20,7 @@ export class User extends Model<UserAttributes> implements UserAttributes {
 	public email!: string;
 	public password!: string;
 	public organizationId?: string;
+	public lastLogin?: Date;
 
 	async comparePassword(password: string): Promise<boolean> {
 		return await bcrypt.compare(password, this.password);
@@ -31,6 +33,10 @@ export class User extends Model<UserAttributes> implements UserAttributes {
 			count: users.length,
 			totalPages: 1,
 		};
+	}
+
+	async updateLastLogin(): Promise<void> {
+		await User.update({ lastLogin: new Date() }, { where: { id:this.id } });
 	}
 }
 
@@ -61,6 +67,10 @@ User.init(
 			type: DataTypes.UUID,
 			allowNull: true,
 		},
+		lastLogin:{
+			type: DataTypes.DATE,
+			allowNull: true,
+		}
 	},
 	{
 		sequelize,

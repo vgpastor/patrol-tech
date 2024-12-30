@@ -78,3 +78,7 @@ clean:
 	if exist temp_dist rmdir /s /q temp_dist
 
 .PHONY: install dev clean
+
+
+migrate:
+	npx sequelize-cli db:migrate
